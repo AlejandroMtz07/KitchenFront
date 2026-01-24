@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
-import AuthLayout from './components/AuthLayout';
+import AuthLayout from './layouts/AuthLayout';
+import AppLayout from './layouts/AppLayout';
+import HomeView from './views/HomeView';
 
 export default function Router() {
     return (
@@ -11,6 +13,10 @@ export default function Router() {
                     <Route path='/auth/login' element={<LoginView />} />
                     <Route path='/auth/register' element={<RegisterView />} />
                 </Route>
+                <Route path='/admin' element={<AppLayout/>}>
+
+                </Route>
+                <Route path='/' element={<HomeView/>}/>
             </Routes>
         </BrowserRouter>
     )
