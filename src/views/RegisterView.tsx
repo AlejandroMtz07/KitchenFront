@@ -39,6 +39,7 @@ export default function RegisterView() {
                 registerData
             )
             console.log(data);
+            reset();
         } catch (error) {
             if(isAxiosError(error)){
                 console.log(error);
