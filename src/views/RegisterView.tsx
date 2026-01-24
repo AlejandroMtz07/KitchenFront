@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form"
 import type { RegisterData } from "../types"
 import ErrorMessage from "../components/ErrorMessage";
-import axios, { isAxiosError } from "axios";
+import { isAxiosError } from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../config/axios";
+import { toast } from "sonner";
 
 
 export default function RegisterView() {
@@ -18,6 +20,8 @@ export default function RegisterView() {
     const { register, handleSubmit, reset, setError, formState: { errors } } = useForm({
         defaultValues: initialValues
     });
+
+    const navigate = useNavigate();
 
     const [isVisible, setIsVisible] = useState(false);
 
@@ -38,15 +42,16 @@ export default function RegisterView() {
             setError('password', { message: 'Password is required' });
         }
         try {
-            const { data } = await axios.post(
-                'http://localhost:8080/api/auth/register',
+            const { data } = await api.post(
+                '/auth/register',
                 registerData
             )
-            console.log(data);
+            toast.success(data.msg);
+            navigate('/auth/login');
             reset();
         } catch (error) {
-            if (isAxiosError(error)) {
-                console.log(error);
+            if (isAxiosError(error) && error.response) {
+                toast.error(error.response.data.error);
             }
         }
 
@@ -150,7 +155,7 @@ export default function RegisterView() {
                             text-sm rounded-md hover:bg-gray-300 transition"
                     />
                 </form>
-                <div className="mt-10 uppercase text-xs font-extralight">
+                <div className="mt-10 lg:mt-5 uppercase text-xs font-extralight">
                     Do you already have an account?{" "}
                     <Link
                         to={'/auth/login'}

@@ -28,7 +28,7 @@ export default function LoginView() {
             )
             toast.success(data.msg);
             localStorage.setItem('token', data.token);
-            navigate('/');
+            navigate('/admin/profile');
             reset();
         } catch (error) {
             if (isAxiosError(error) && error.response) {
