@@ -5,7 +5,7 @@ import { Toaster } from "sonner";
 export default function AuthLayout() {
     return (
         <>
-            <div className="min-h-screen bg-gray-100 ">
+            <div className="min-h-screen bg-white ">
                 <div className="max-w-lg mx-auto pt-20 px-5 flex flex-row justify-center items-center gap-10">
                     <Link to={'/'}>
                         <img src="/kitchen-logo.svg" alt="Kitchen Logo" height={100} width={100} />

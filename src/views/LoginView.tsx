@@ -39,7 +39,7 @@ export default function LoginView() {
 
     return (
         <div
-            className="bg-white mt-20 lg:mt-10 p-10 text-center
+            className="bg-white border-2 border-gray-200 mt-20 lg:mt-10 p-10 text-center
              hover:shadow-2xl transition rounded-lg -m-10 md:m-2 lg:m-60 "
         >
             <h1 className="font-extralight text-2xl uppercase mb-10 tracking-widest">
