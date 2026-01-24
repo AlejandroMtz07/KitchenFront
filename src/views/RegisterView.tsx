@@ -3,10 +3,11 @@ import type { RegisterData } from "../types"
 import ErrorMessage from "../components/ErrorMessage";
 import axios, { isAxiosError } from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 export default function RegisterView() {
-    const initialValues : RegisterData= {
+    const initialValues: RegisterData = {
         name: '',
         lastname: '',
         username: '',
@@ -14,37 +15,37 @@ export default function RegisterView() {
         password: ''
     }
 
-    const {register, handleSubmit, reset,setError, formState: {errors}} = useForm({
+    const { register, handleSubmit, reset, setError, formState: { errors } } = useForm({
         defaultValues: initialValues
     });
 
     const [isVisible, setIsVisible] = useState(false);
 
-    const handleRegister = async (registerData: RegisterData) =>{
-        if(registerData.name.trim().length === 0){
-            setError('name',{message: 'Name is required'});
+    const handleRegister = async (registerData: RegisterData) => {
+        if (registerData.name.trim().length === 0) {
+            setError('name', { message: 'Name is required' });
         }
-        if(registerData.lastname.trim().length === 0){
-            setError('lastname',{message: 'Lastname is required'});
+        if (registerData.lastname.trim().length === 0) {
+            setError('lastname', { message: 'Lastname is required' });
         }
-        if(registerData.username.trim().length === 0){
-            setError('username',{message: 'Username is required'});
+        if (registerData.username.trim().length === 0) {
+            setError('username', { message: 'Username is required' });
         }
-        if(registerData.email.trim().length === 0){
-            setError('email',{message: 'Email is required'});
+        if (registerData.email.trim().length === 0) {
+            setError('email', { message: 'Email is required' });
         }
-        if(registerData.password.trim().length === 0){
-            setError('password',{message: 'Password is required'});
+        if (registerData.password.trim().length === 0) {
+            setError('password', { message: 'Password is required' });
         }
         try {
-            const {data} = await axios.post(
+            const { data } = await axios.post(
                 'http://localhost:8080/api/auth/register',
                 registerData
             )
             console.log(data);
             reset();
         } catch (error) {
-            if(isAxiosError(error)){
+            if (isAxiosError(error)) {
                 console.log(error);
             }
         }
@@ -60,7 +61,7 @@ export default function RegisterView() {
                 <h1 className="font-extralight text-2xl uppercase mb-10 tracking-wide">
                     Register form
                 </h1>
-                <form 
+                <form
                     onSubmit={handleSubmit(handleRegister)}
                     className="lg:grid grid-cols-2 p-5 gap-4 flex flex-col"
                 >
@@ -68,12 +69,12 @@ export default function RegisterView() {
                         <label htmlFor="name" className="p-4 font-extralight text-sm">
                             NAME
                         </label>
-                        <input 
-                            type="text" 
-                            id="name" 
+                        <input
+                            type="text"
+                            id="name"
                             className="bg-gray-100 hover:border-b-2 border-gray-400
                                 focus:bg-gray-200 text-center p-2 transition"
-                            {...register('name',{required: 'Name is required'})}
+                            {...register('name', { required: 'Name is required' })}
                         />
                         {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
                     </div>
@@ -81,12 +82,12 @@ export default function RegisterView() {
                         <label htmlFor="lastname" className="p-4 font-extralight text-sm">
                             LASTNAME
                         </label>
-                        <input 
-                            type="text" 
-                            id="lastname" 
+                        <input
+                            type="text"
+                            id="lastname"
                             className="bg-gray-100 hover:border-b-2 border-gray-400
                             focus:bg-gray-200 text-center p-2 transition"
-                            {...register('lastname',{required: 'Lastname is required'})}
+                            {...register('lastname', { required: 'Lastname is required' })}
                         />
                         {errors.lastname && <ErrorMessage>{errors.lastname.message}</ErrorMessage>}
                     </div>
@@ -94,12 +95,12 @@ export default function RegisterView() {
                         <label htmlFor="username" className="p-4 font-extralight text-sm">
                             USERNAME
                         </label>
-                        <input 
-                            type="text" 
-                            id="username" 
+                        <input
+                            type="text"
+                            id="username"
                             className="bg-gray-100 hover:border-b-2 border-gray-400
                             focus:bg-gray-200 text-center p-2 transition"
-                            {...register('username',{required: 'Username is required'})}
+                            {...register('username', { required: 'Username is required' })}
                         />
                         {errors.username && <ErrorMessage>{errors.username.message}</ErrorMessage>}
                     </div>
@@ -107,14 +108,17 @@ export default function RegisterView() {
                         <label htmlFor="username" className="p-4 font-extralight text-sm">
                             EMAIL
                         </label>
-                        <input 
-                            type="text" 
-                            id="email" 
+                        <input
+                            type="text"
+                            id="email"
                             className="bg-gray-100 hover:border-b-2 border-gray-400
                             focus:bg-gray-200 text-center p-2 transition"
-                            {...register('email',{
-                                required: 'Email is required',pattern: {value: /\S+@\S+\.\S+/,
-                                message: "Invalid email",},})}
+                            {...register('email', {
+                                required: 'Email is required', pattern: {
+                                    value: /\S+@\S+\.\S+/,
+                                    message: "Invalid email",
+                                },
+                            })}
                         />
                         {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
                     </div>
@@ -122,30 +126,39 @@ export default function RegisterView() {
                         <label htmlFor="passsword" className="p-4 font-extralight text-sm">
                             PASSWRORD
                         </label>
-                        <input 
-                            type={isVisible ? 'text' : 'password'} 
-                            id="password" 
+                        <input
+                            type={isVisible ? 'text' : 'password'}
+                            id="password"
                             className="bg-gray-100 hover:border-b-2 border-gray-400
                             focus:bg-gray-200 text-center p-2 transition"
-                            {...register('password',{required: 'Password is required'})}
+                            {...register('password', { required: 'Password is required' })}
                         />
-                        <button 
+                        <button
                             type="button"
-                            onClick={()=>setIsVisible(!isVisible)}
+                            onClick={() => setIsVisible(!isVisible)}
                             className="text-xs text-left font-extralight uppercase mt-2"
                         >
                             {isVisible ? 'Hide password' : 'Show password'}
                         </button>
                         {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
                     </div>
-                    <input 
-                        type="submit" 
-                        value="Register" 
+                    <input
+                        type="submit"
+                        value="Register"
                         className="col-span-2 bg-gray-100 border-b-gray-400 
                             border-b-2 p-2 ml-10 mr-10 font-extralight 
                             text-sm rounded-md hover:bg-gray-300 transition"
                     />
                 </form>
+                <div className="mt-10 uppercase text-xs font-extralight">
+                    Do you already have an account?{" "}
+                    <Link
+                        to={'/auth/login'}
+                        className="text-blue-800 font-bold"
+                    >
+                        Login
+                    </Link>
+                </div>
             </div>
         </>
     )

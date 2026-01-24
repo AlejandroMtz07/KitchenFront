@@ -4,7 +4,7 @@ import type { LoginData } from "../types";
 import ErrorMessage from "../components/ErrorMessage";
 import axios, { isAxiosError } from "axios";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginView() {
 
@@ -16,22 +16,22 @@ export default function LoginView() {
         password: ''
     }
 
-    const { register, handleSubmit, reset , formState: { errors } } = useForm({ defaultValues: initalVlaues });
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initalVlaues });
 
     const navigate = useNavigate();
 
     const handleLogin = async (formData: LoginData) => {
         try {
-            const {data} = await axios.post(
+            const { data } = await axios.post(
                 'http://localhost:8080/api/auth/login',
                 formData,
             )
             toast.success(data.msg);
-            localStorage.setItem('token',data.token);
+            localStorage.setItem('token', data.token);
             navigate('/');
             reset();
         } catch (error) {
-            if(isAxiosError(error) && error.response){
+            if (isAxiosError(error) && error.response) {
                 toast.error(error.response.data.error);
             }
         }
@@ -79,20 +79,29 @@ export default function LoginView() {
                     />
                     {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
                     <button type="button"
-                        className="text-xs text-left font-extralight uppercase mt-2" 
+                        className="text-xs text-left font-extralight uppercase mt-2"
                         onClick={() => setIsVisible(!isVisible)}
-                        >
+                    >
                         {isVisible ? 'Hide password' : 'Show password'}
                     </button>
                 </div>
-                <input 
-                    type="submit" 
+                <input
+                    type="submit"
                     className="col-span-2 bg-gray-100 border-b-gray-400 
                             border-b-2 p-2 ml-10 mr-10 font-extralight 
-                            text-sm rounded-md hover:bg-gray-300 transition" 
+                            text-sm rounded-md hover:bg-gray-300 transition"
                     value={'SEND'}
                 />
             </form>
+            <div className="mt-10 uppercase text-xs font-extralight">
+                Dont have an account yet?{" "}
+                <Link 
+                    to={'/auth/register'} 
+                    className="text-blue-800 font-bold"
+                >
+                    Register
+                </Link>
+            </div>
         </div>
     )
 }
