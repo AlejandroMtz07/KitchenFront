@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form"
 import type { RegisterData } from "../types"
 import ErrorMessage from "../components/ErrorMessage";
 import axios, { isAxiosError } from "axios";
+import { useState } from "react";
 
 
 export default function RegisterView() {
@@ -16,6 +17,8 @@ export default function RegisterView() {
     const {register, handleSubmit, reset,setError, formState: {errors}} = useForm({
         defaultValues: initialValues
     });
+
+    const [isVisible, setIsVisible] = useState(false);
 
     const handleRegister = async (registerData: RegisterData) =>{
         if(registerData.name.trim().length === 0){
@@ -120,19 +123,27 @@ export default function RegisterView() {
                             PASSWRORD
                         </label>
                         <input 
-                            type="text" 
+                            type={isVisible ? 'text' : 'password'} 
                             id="password" 
                             className="bg-gray-100 hover:border-b-2 border-gray-400
                             focus:bg-gray-200 text-center p-2 transition"
                             {...register('password',{required: 'Password is required'})}
                         />
+                        <button 
+                            type="button"
+                            onClick={()=>setIsVisible(!isVisible)}
+                            className="text-xs text-left font-extralight uppercase mt-2"
+                        >
+                            {isVisible ? 'Hide password' : 'Show password'}
+                        </button>
                         {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
                     </div>
                     <input 
                         type="submit" 
                         value="Register" 
-                        className="col-span-2 bg-gray-300 p-2 ml-10 mr-10 font-extralight 
-                            text-sm rounded-md hover:bg-gray-400 transition"
+                        className="col-span-2 bg-gray-100 border-b-gray-400 
+                            border-b-2 p-2 ml-10 mr-10 font-extralight 
+                            text-sm rounded-md hover:bg-gray-300 transition"
                     />
                 </form>
             </div>

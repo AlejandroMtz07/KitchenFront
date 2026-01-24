@@ -87,8 +87,9 @@ export default function LoginView() {
                 </div>
                 <input 
                     type="submit" 
-                    className="bg-gray-300 p-2 ml-10 mr-10 font-extralight 
-                    text-sm rounded-md hover:bg-gray-400 transition" 
+                    className="col-span-2 bg-gray-100 border-b-gray-400 
+                            border-b-2 p-2 ml-10 mr-10 font-extralight 
+                            text-sm rounded-md hover:bg-gray-300 transition" 
                     value={'SEND'}
                 />
             </form>
