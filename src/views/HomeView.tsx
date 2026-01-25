@@ -22,7 +22,7 @@ export default function HomeView() {
                     <img 
                         src="/images/recipe-book.jpg" 
                         alt="Recipe book" 
-                        className="rounded-lg opacity-75 relative"
+                        className="rounded-lg opacity-75"
                     />
                 </div>
                 <div className="p-4 mt-40 m-20 border-gray-200 flex items-center rounded-lg

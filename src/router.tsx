@@ -13,7 +13,7 @@ export default function Router() {
                     <Route path='/auth/login' element={<LoginView />} />
                     <Route path='/auth/register' element={<RegisterView />} />
                 </Route>
-                <Route path='/admin' element={<AppLayout/>}>
+                <Route path='/recipes' element={<AppLayout/>}>
 
                 </Route>
                 <Route path='/' element={<HomeView/>}/>
