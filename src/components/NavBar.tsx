@@ -5,8 +5,9 @@ export default function NavBar() {
     return (
 
         <nav
-            className="lg:p-20 p-7 bg-transparent items-center flex 
-                    justify-between gap-1 lg:gap-10 border-b-2 border-b-gray-200 sticky top-0 z-50"
+            className="lg:p-10 p-7 bg-transparent items-center flex 
+                    justify-between gap-1 lg:gap-10 border-b-2 
+                    border-b-gray-300 sticky top-0 z-50 backdrop-blur-sm"
         >
             <div className="flex items-center lg:gap-4 gap-2">
                 <Link to={'/'}>
