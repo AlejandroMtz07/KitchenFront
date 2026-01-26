@@ -12,3 +12,19 @@ export type RegisterData ={
     email: string,
     password: string
 }
+
+export type PublicRecipe = {
+    id: number,
+    name: string,
+    description: string,
+    ingredients: string,
+    image: string,
+    user_id: number,
+    user_name: string,
+    user_username: string,
+    user_email: string
+}
+
+export type BackendRecipes = {
+    recipes: PublicRecipe[]
+}

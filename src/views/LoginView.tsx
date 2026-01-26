@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useForm } from 'react-hook-form'
 import type { LoginData } from "../types";
 import ErrorMessage from "../components/ErrorMessage";
-import axios, { isAxiosError } from "axios";
+import { isAxiosError } from "axios";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../config/axios";
 
 export default function LoginView() {
 
@@ -22,13 +23,13 @@ export default function LoginView() {
 
     const handleLogin = async (formData: LoginData) => {
         try {
-            const { data } = await axios.post(
-                'http://localhost:8080/api/auth/login',
+            const { data } = await api.post(
+                '/auth/login',
                 formData,
             )
             toast.success(data.msg);
             localStorage.setItem('token', data.token);
-            navigate('/admin/profile');
+            navigate('/recipes');
             reset();
         } catch (error) {
             if (isAxiosError(error) && error.response) {
