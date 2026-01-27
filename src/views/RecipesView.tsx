@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRecipes } from "../api/RecipesApi";
 import { Navigate } from "react-router-dom";
-import {ArrowPathIcon, MagnifyingGlassIcon} from '@heroicons/react/24/outline';
+import {ArrowPathIcon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import { useMemo, useState } from "react";
 
 export default function RecipesView() {
@@ -36,17 +36,21 @@ export default function RecipesView() {
             <h1 className="text-center p-5 font-extralight text-2xl uppercase">
                 !Your amazing recipe book¡
             </h1>
-                <div className="flex flex-row lg:m-10 items-center">
-                    <label htmlFor="searchTerm">
+                <div className="flex lg:flex-row flex-col lg:m-10 lg:ml-10 items-center">
+                    <label htmlFor="searchTerm" className="flex flex-row">
                         <MagnifyingGlassIcon width={20}/>
+                        <input 
+                            type="text" id="searchTerm" 
+                            placeholder="Search by recipe name, author or ingredients" 
+                            className="ml-5 lg:w-96 text-xs w-40 bg-transparent bg-gray-200 p-4 rounded"
+                            value={searchTerm}
+                            onChange={(e)=>setSearchTerm(e.target.value)}
+                        />
+                        <XMarkIcon width={20} className="ml-5 cursor-pointer" onClick={()=>setSearchTerm('')}/>
                     </label>
-                    <input 
-                        type="text" id="searchTerm" 
-                        placeholder="Search by recipe name, author or ingredients" 
-                        className="ml-5 lg:w-96 text-xs w-40 bg-transparent bg-gray-200 p-4 rounded"
-                        onChange={(e)=>setSearchTerm(e.target.value)}
-                    />
-                    <button>Add recipe</button>
+                    <div className="flex flex-row p-5 gap-10">
+                        <button>Add recipe</button>
+                    </div>
                 </div>
             <div className="lg:grid lg:grid-cols-2 lg:p-20 p-10 lg:gap-10 gap-5
                 flex flex-col text-center"
