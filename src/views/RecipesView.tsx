@@ -1,33 +1,24 @@
-import { useEffect, useState } from "react"
-import api from "../config/axios";
-import { isAxiosError } from "axios";
-import type { BackendRecipes, PublicRecipe } from "../types";
+import { useQuery } from "@tanstack/react-query";
+import { getRecipes } from "../api/RecipesApi";
+import { Navigate } from "react-router-dom";
 
 export default function RecipesView() {
+    const { data, isLoading, isError } = useQuery({
+        queryFn: getRecipes,
+        queryKey: ['recipes'],
+        retry: 1
+    });
 
-    const [userRecipes, setUserRecipes] = useState<PublicRecipe[]>([]);
-
-    const getRecipes = async ()=>{
-        const token = localStorage.getItem('token');
-        try {
-            const {data} = await api.get<BackendRecipes>(
-                '/recipes',
-                {headers: {Authorization: `Bearer ${token}`}}
-            )
-            setUserRecipes(data.recipes);
-        } catch (error) {
-            if(isAxiosError(error) && error.message){
-                console.log(error.message);
-            }
-        }
+    if (isError) {
+        return <Navigate to={'/auth/login'} />
     }
-    useEffect(()=>{
-       getRecipes();
-    },[])
+
+    if (isLoading) return 'Loading...'
 
     return (
+        data &&
         <div>
-            {userRecipes.map(recipe =>(
+            {data.map(recipe => (
                 <p key={recipe.id}>{recipe.name}</p>
             ))}
         </div>
