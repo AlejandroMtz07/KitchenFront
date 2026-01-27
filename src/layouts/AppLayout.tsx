@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import api from "../config/axios";
 import type { BackendRecipes, PublicRecipe } from "../types";
 import RecipeCard from "../components/RecipeCard";
+import { Toaster } from "sonner";
 
 
 export default function AppLayout() {
@@ -28,6 +29,7 @@ export default function AppLayout() {
           <RecipeCard recipe={recipe} key={recipe.id}/>
         ))}
       </div>
+      <Toaster position="top-right"/>
     </div>
   )
 }
