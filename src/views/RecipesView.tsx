@@ -17,10 +17,15 @@ export default function RecipesView() {
 
     return (
         data &&
-        <div>
-            {data.map(recipe => (
-                <p key={recipe.id}>{recipe.name}</p>
-            ))}
-        </div>
+        <>
+            <h1 className="text-center p-5">
+                Your recipe book.
+            </h1>
+            <div>
+                {data.map(recipe => (
+                    <p key={recipe.id}>{recipe.name}</p>
+                ))}
+            </div>
+        </>
     )
 }

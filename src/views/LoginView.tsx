@@ -29,7 +29,7 @@ export default function LoginView() {
             )
             toast.success(data.msg);
             localStorage.setItem('token', data.token);
-            navigate('/recipes');
+            navigate('/book');
             reset();
         } catch (error) {
             if (isAxiosError(error) && error.response) {

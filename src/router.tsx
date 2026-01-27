@@ -5,6 +5,7 @@ import AuthLayout from './layouts/AuthLayout';
 import AppLayout from './layouts/AppLayout';
 import HomeView from './views/HomeView';
 import RecipesView from './views/RecipesView';
+import PublicRecipesView from './views/PublicRecipesView';
 
 export default function Router() {
     return (
@@ -14,8 +15,10 @@ export default function Router() {
                     <Route path='/auth/login' element={<LoginView />} />
                     <Route path='/auth/register' element={<RegisterView />} />
                 </Route>
-                <Route path='/recipes' element={<AppLayout />} />
-                <Route path='/book' element={<RecipesView/>}/>
+                <Route path='/' element={<AppLayout />} >
+                    <Route path='recipes' element={<PublicRecipesView/>}/>
+                    <Route path='book' element={<RecipesView/>}/>
+                </Route>
                 <Route path='/' element={<HomeView />} />
             </Routes>
         </BrowserRouter>
