@@ -15,8 +15,8 @@ export default function Router() {
                     <Route path='/auth/login' element={<LoginView />} />
                     <Route path='/auth/register' element={<RegisterView />} />
                 </Route>
-                <Route path='/' element={<AppLayout />} >
-                    <Route path='recipes' element={<PublicRecipesView/>}/>
+                <Route path='/recipes' element={<AppLayout />} >
+                    <Route path='' element={<PublicRecipesView/>}/>
                     <Route path='book' element={<RecipesView/>}/>
                 </Route>
                 <Route path='/' element={<HomeView />} />

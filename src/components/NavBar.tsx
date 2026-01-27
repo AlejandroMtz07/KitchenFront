@@ -1,7 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 export default function NavBar() {
+
+    const location = useLocation();
+
     return (
 
         <nav
@@ -20,12 +23,17 @@ export default function NavBar() {
                 </h1>
             </div>
             <div className="flex lg:gap-10 gap-3">
-                <Link
-                    to={'/auth/login'}
-                    className="text-right text-sm border-b-black border-b-2 uppercase font-extralight"
-                >
-                    Login
-                </Link>
+                {location.pathname === '/recipes/book'? 
+                    <Link 
+                        to={'/'} 
+                        className="text-right text-sm border-b-black border-b-2 uppercase font-extralight">Logout
+                    </Link>:
+                    <Link
+                        to={'/auth/login'}
+                        className="text-right text-sm border-b-black border-b-2 uppercase font-extralight">
+                        Login
+                    </Link>
+                }
                 <Link
                     to={'/auth/register'}
                     className="text-right text-sm border-b-black border-b-2 uppercase font-extralight"

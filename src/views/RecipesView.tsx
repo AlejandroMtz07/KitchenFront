@@ -18,12 +18,17 @@ export default function RecipesView() {
     return (
         data &&
         <>
-            <h1 className="text-center p-5">
+            <h1 className="text-center p-5 font-extralight text-3xl">
                 Your recipe book.
             </h1>
-            <div>
+            <div className="grid grid-cols-2 p-20 text-center gap-2">
                 {data.map(recipe => (
-                    <p key={recipe.id}>{recipe.name}</p>
+                    <div
+                        className="bg-gray-200 p-20 rounded"
+                        key={recipe.id}
+                    >
+                        {recipe.name}
+                    </div>
                 ))}
             </div>
         </>
