@@ -48,7 +48,7 @@ export default function RecipesView() {
                         />
                         <XMarkIcon width={20} className="ml-5 cursor-pointer" onClick={()=>setSearchTerm('')}/>
                     </label>
-                    <div className="flex flex-row p-5 gap-10">
+                    <div className="flex flex-row p-2 gap-10 border-b-black border-b-2  lg:ml-10">
                         <Link to={'/recipes/new'}>Add recipe</Link>
                     </div>
                 </div>

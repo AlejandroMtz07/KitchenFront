@@ -13,6 +13,14 @@ export type RegisterData ={
     password: string
 }
 
+export type RegisterRecipe = {
+    name: string,
+    description: string,
+    is_private: boolean,
+    ingredients: string,
+    file?: File
+}
+
 export type PublicRecipe = {
     id: number,
     name: string,
