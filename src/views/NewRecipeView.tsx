@@ -1,9 +1,29 @@
 import { useForm } from "react-hook-form"
 import ErrorMessage from "../components/ErrorMessage"
 import type { RegisterRecipe } from "../types";
+import { useQuery } from "@tanstack/react-query";
+import { Navigate } from "react-router-dom";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
+import { getRecipes } from "../api/RecipesApi";
 
 
 export default function NewRecipeView() {
+
+    const { data, isLoading, isError } = useQuery({
+        queryFn: getRecipes,
+        queryKey: ['recipes'],
+        retry: 1
+    });
+
+    if (isError) {
+        return <Navigate to={'/auth/login'} />
+    }
+
+    if (isLoading) return (
+        <div className="flex justify-center items-center h-screen animate-spin">
+            <ArrowPathIcon height={40} width={40} />
+        </div>
+    )
 
     const initialValues: RegisterRecipe = {
         name: '',
@@ -22,7 +42,7 @@ export default function NewRecipeView() {
     }
 
     return (
-        <div>
+        data && <div>
             <h1 className="text-center p-5 text-2xl uppercase font-extralight">
                 Add anothe recipe
             </h1>
