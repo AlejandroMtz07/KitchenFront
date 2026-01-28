@@ -36,7 +36,7 @@ export default function RecipesView() {
             <h1 className="text-center p-5 font-extralight text-2xl uppercase">
                 !Your amazing recipe book¡
             </h1>
-                <div className="flex lg:flex-row flex-col lg:m-10 lg:ml-10 items-center">
+                <div className="flex lg:flex-row flex-col lg:m-10 lg:ml-20 items-center">
                     <label htmlFor="searchTerm" className="flex flex-row">
                         <MagnifyingGlassIcon width={20}/>
                         <input 
@@ -62,9 +62,10 @@ export default function RecipesView() {
                         key={recipe.id}
                     >
                         <div className="text-xs lg:text-sm grid grid-cols-1 lg:p-10 p-5">
-                            <p>Name: {recipe.name}</p>
-                            <p>Description: {recipe.description}</p>
-                            <p>Author: {recipe.user_name}</p>
+                            <p><span className="font-bold">Name:</span> {recipe.name}</p>
+                            <p><span className="font-bold">Description:</span> {recipe.description}</p>
+                            <p><span className="font-bold">Igredients:</span> {recipe.ingredients}</p>
+                            <p><span className="font-bold">Author:</span> {recipe.user_name}</p>
                         </div>
                         <div className="flex flex-col items-center">
                             <img src={recipe.image} alt="Recipe image" className="rounded-xl" width='70%'/>
