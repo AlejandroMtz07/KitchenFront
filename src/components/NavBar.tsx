@@ -5,6 +5,11 @@ export default function NavBar() {
 
     const location = useLocation();
 
+    const protectedLinks = [
+        '/recipes/book',
+        '/recipes/new'
+    ]
+
     return (
 
         <nav
@@ -23,7 +28,7 @@ export default function NavBar() {
                 </h1>
             </div>
             <div className="flex lg:gap-10 gap-3">
-                {location.pathname === '/recipes/book'? 
+                {protectedLinks.includes(location.pathname)? 
                     <Link 
                         to={'/'} 
                         className="text-right text-sm border-b-black border-b-2 uppercase font-extralight">Logout
@@ -34,12 +39,12 @@ export default function NavBar() {
                         Login
                     </Link>
                 }
-                <Link
+                {protectedLinks.includes(location.pathname) ? '' : <Link
                     to={'/auth/register'}
                     className="text-right text-sm border-b-black border-b-2 uppercase font-extralight"
                 >
                     Register
-                </Link>
+                </Link>}
                 <Link
                     to={'/recipes'}
                     className="text-right text-sm border-b-black border-b-2 uppercase font-extralight"

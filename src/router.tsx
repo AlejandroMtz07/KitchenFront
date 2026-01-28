@@ -6,6 +6,7 @@ import AppLayout from './layouts/AppLayout';
 import HomeView from './views/HomeView';
 import RecipesView from './views/RecipesView';
 import PublicRecipesView from './views/PublicRecipesView';
+import NewRecipeView from './views/NewRecipeView';
 
 export default function Router() {
     return (
@@ -18,6 +19,7 @@ export default function Router() {
                 <Route path='/recipes' element={<AppLayout />} >
                     <Route path='' element={<PublicRecipesView/>}/>
                     <Route path='book' element={<RecipesView/>}/>
+                    <Route path='new' element={<NewRecipeView/>}/>
                 </Route>
                 <Route path='/' element={<HomeView />} />
             </Routes>

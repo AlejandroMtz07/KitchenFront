@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRecipes } from "../api/RecipesApi";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import {ArrowPathIcon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import { useMemo, useState } from "react";
 
@@ -49,7 +49,7 @@ export default function RecipesView() {
                         <XMarkIcon width={20} className="ml-5 cursor-pointer" onClick={()=>setSearchTerm('')}/>
                     </label>
                     <div className="flex flex-row p-5 gap-10">
-                        <button>Add recipe</button>
+                        <Link to={'/recipes/new'}>Add recipe</Link>
                     </div>
                 </div>
             <div className="lg:grid lg:grid-cols-2 lg:p-20 p-10 lg:gap-10 gap-5
