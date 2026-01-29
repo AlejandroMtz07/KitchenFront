@@ -64,7 +64,7 @@ export default function RecipesView() {
                         <div className="text-xs lg:text-sm grid grid-cols-1 lg:p-10 p-5">
                             <p><span className="font-bold">Name:</span> {recipe.name}</p>
                             <p><span className="font-bold">Description:</span> {recipe.description}</p>
-                            <p><span className="font-bold">Igredients:</span> {recipe.ingredients}</p>
+                            <p><span className="font-bold">Ingredients:</span> {recipe.ingredients}</p>
                             <p><span className="font-bold">Author:</span> {recipe.user_name}</p>
                         </div>
                         <div className="flex flex-col items-center">
