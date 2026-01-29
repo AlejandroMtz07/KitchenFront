@@ -2,12 +2,23 @@ import { useForm } from "react-hook-form"
 import ErrorMessage from "../components/ErrorMessage"
 import type { RegisterRecipe } from "../types";
 import { useQuery } from "@tanstack/react-query";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { getRecipes } from "../api/RecipesApi";
+import api from "../config/axios";
+import { toast } from "sonner";
+import { isAxiosError } from "axios";
 
 
 export default function NewRecipeView() {
+
+    const initialValues: RegisterRecipe = {
+        name: '',
+        description: '',
+        is_private: true,
+        ingredients: '',
+        file: []
+    }
 
     const { data, isLoading, isError } = useQuery({
         queryFn: getRecipes,
@@ -15,6 +26,37 @@ export default function NewRecipeView() {
         retry: 1
     });
 
+
+    const { handleSubmit, register, formState: { errors } } = useForm({
+        defaultValues: initialValues
+    });
+
+    const navigate = useNavigate();
+
+    const recipeSubmit = async (formData: RegisterRecipe) => {
+        let dataFormated = new FormData();
+
+        dataFormated.append('file', formData.file[0])
+        dataFormated.append('name', formData.name)
+        dataFormated.append('description', formData.description)
+        dataFormated.append('is_private', String(formData.is_private===false ? '0':'1'))
+        dataFormated.append('ingredients', formData.ingredients)
+
+        try {
+            const token = localStorage.getItem('token');
+            const {data} = await api.post(
+                '/recipes/add',
+                dataFormated,
+                {headers: {Authorization: `Bearer ${token}`}}
+            )
+            toast.success(data && 'Recipe added successfully');
+            navigate('/recipes/book');
+        } catch (error) {
+            if(isAxiosError(error) && error.response){
+                toast.error(error.response.data.error);
+            }
+        }
+    }
     if (isError) {
         return <Navigate to={'/auth/login'} />
     }
@@ -25,21 +67,6 @@ export default function NewRecipeView() {
         </div>
     )
 
-    const initialValues: RegisterRecipe = {
-        name: '',
-        description: '',
-        is_private: true,
-        ingredients: '',
-        file: undefined
-    }
-
-    const { handleSubmit, register, formState: { errors } } = useForm({
-        defaultValues: initialValues
-    });
-
-    const recipeSubmit = async (formData: RegisterRecipe) => {
-        console.log(formData);
-    }
 
     return (
         data && <div>
@@ -113,7 +140,7 @@ export default function NewRecipeView() {
                         <input
                             type="submit"
                             value="Add recipe"
-                            className="uppercase font-extralight text-sm border-b-2 border-black p-1"
+                            className="uppercase font-extralight text-sm border-b-2 border-black p-1 cursor-pointer"
                         />
                     </div>
                 </form>

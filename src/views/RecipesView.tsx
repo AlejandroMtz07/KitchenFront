@@ -3,6 +3,7 @@ import { getRecipes } from "../api/RecipesApi";
 import { Link, Navigate } from "react-router-dom";
 import {ArrowPathIcon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
 
 export default function RecipesView() {
     const { data, isLoading, isError } = useQuery({
@@ -48,8 +49,8 @@ export default function RecipesView() {
                         />
                         <XMarkIcon width={20} className="ml-5 cursor-pointer" onClick={()=>setSearchTerm('')}/>
                     </label>
-                    <div className="flex flex-row p-2 gap-10 border-b-black border-b-2  lg:ml-10">
-                        <Link to={'/recipes/new'}>Add recipe</Link>
+                    <div className="flex flex-row p-2 gap-10 border-b-black border-b-2  lg:ml-10 uppercase text-xs">
+                        <Link to={'/recipes/new'}>New recipe</Link>
                     </div>
                 </div>
             <div className="lg:grid lg:grid-cols-2 lg:p-20 p-10 lg:gap-10 gap-5

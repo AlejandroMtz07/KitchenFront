@@ -18,7 +18,7 @@ export type RegisterRecipe = {
     description: string,
     is_private: boolean,
     ingredients: string,
-    file?: File
+    file: File[]
 }
 
 export type PublicRecipe = {
