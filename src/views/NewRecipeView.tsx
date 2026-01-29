@@ -77,7 +77,7 @@ export default function NewRecipeView() {
             <div className="flex items-center p-5">
                 <ArrowLeftIcon width={30} className="justify-self-start lg:ml-20 ml-5 cursor-pointer" onClick={handleReturn}/>
                 <h1 className="text-center p-5 text-2xl uppercase font-extralight lg:ml-96">
-                    Add anothe recipe
+                    Add another recipe
                 </h1>
             </div>
             <div className="border-gray-300 border-2 lg:m-20 m-10">

@@ -3,6 +3,7 @@ import { getRecipes } from "../api/RecipesApi";
 import { Link, Navigate } from "react-router-dom";
 import {ArrowPathIcon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import { useMemo, useState } from "react";
+import RecipeCard from "../components/RecipeCard";
 
 export default function RecipesView() {
     const { data, isLoading, isError } = useQuery({
@@ -33,7 +34,7 @@ export default function RecipesView() {
     return (
         data &&
         <>
-            <h1 className="text-center p-5 font-extralight text-2xl uppercase">
+            <h1 className="text-center p-5 mt-5 font-extralight text-2xl uppercase">
                 !Your amazing recipe book¡
             </h1>
                 <div className="flex lg:flex-row flex-col lg:m-10 lg:ml-20 items-center">
@@ -52,28 +53,11 @@ export default function RecipesView() {
                         <Link to={'/recipes/new'}>New recipe</Link>
                     </div>
                 </div>
-            <div className="lg:grid lg:grid-cols-2 lg:p-20 p-10 lg:gap-10 gap-5
+            <div className="lg:p-20 p-10 lg:gap-10 gap-5
                 flex flex-col text-center"
             >
                 {handleInputsearch && handleInputsearch.map(recipe => (
-                    <div
-                        className="bg-white border-2 border-gray-300 
-                        rounded grid grid-cols-2 items-center p-10 hover:shadow-lg transition"
-                        key={recipe.id}
-                    >
-                        <div className="text-xs lg:text-sm grid grid-cols-1 lg:p-10 p-5">
-                            <p><span className="font-bold">Name:</span> {recipe.name}</p>
-                            <p><span className="font-bold">Description:</span> {recipe.description}</p>
-                            <p><span className="font-bold">Ingredients:</span> {recipe.ingredients}</p>
-                            <p>
-                                <span className="font-bold">Author: </span> 
-                                <Link to={`/${recipe.user_username}`} className="border-b-2 border-black">{recipe.user_username}</Link>
-                            </p>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <img src={recipe.image} alt="Recipe image" className="rounded-xl" width='70%'/>
-                        </div>
-                    </div>
+                    <RecipeCard recipe={recipe} key={recipe.id}/>
                 ))}
             </div>
         </>
