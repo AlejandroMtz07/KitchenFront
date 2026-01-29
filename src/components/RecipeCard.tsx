@@ -36,15 +36,16 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                 <div className="text-center lg:ml-40 p-4 lg:text-lg text-sm">
                     <p className="font-extralight">{recipe.name}</p>
                     <p className="font-extralight">{recipe.description}</p>
-                    <p>
+                    {recipe.user_username &&<p>
                         Author:
                         <Link 
-                            to={'/:username'} 
+                            to={`/${recipe.user_username}`} 
                             className="font-extralight border-b-2 border-black"
                         >
                                 {' '}{recipe.user_username}
                         </Link>
-                    </p><br/>
+                        <br/>
+                    </p>}
                     <button 
                         className="lg:mt-10 mt-2 text-xs p-2 uppercase lg:border-b-2 border-black "
                         onClick={()=>handleAddRecipe(recipe)}

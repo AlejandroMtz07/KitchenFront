@@ -16,3 +16,16 @@ export async function getRecipes() {
         }
     }
 }
+
+export async function getRecipesByUsername(username:string){
+    try {
+        const {data} = await api.get(
+            `/recipes/${username}`
+        )
+        return data.recipes;
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data.error);
+        }
+    }
+}
