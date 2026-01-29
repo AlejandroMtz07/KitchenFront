@@ -3,7 +3,6 @@ import { getRecipes } from "../api/RecipesApi";
 import { Link, Navigate } from "react-router-dom";
 import {ArrowPathIcon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import { useMemo, useState } from "react";
-import { toast } from "sonner";
 
 export default function RecipesView() {
     const { data, isLoading, isError } = useQuery({
