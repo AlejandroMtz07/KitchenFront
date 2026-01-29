@@ -7,6 +7,7 @@ import HomeView from './views/HomeView';
 import RecipesView from './views/RecipesView';
 import PublicRecipesView from './views/PublicRecipesView';
 import NewRecipeView from './views/NewRecipeView';
+import UserRecipes from './views/UserRecipes';
 
 export default function Router() {
     return (
@@ -20,6 +21,9 @@ export default function Router() {
                     <Route path='' element={<PublicRecipesView/>}/>
                     <Route path='book' element={<RecipesView/>}/>
                     <Route path='new' element={<NewRecipeView/>}/>
+                </Route>
+                <Route path='/:username' element={<AppLayout/>}>
+                    <Route element={<UserRecipes/>} index={true}/>
                 </Route>
                 <Route path='/' element={<HomeView />} />
             </Routes>

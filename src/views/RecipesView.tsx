@@ -65,7 +65,10 @@ export default function RecipesView() {
                             <p><span className="font-bold">Name:</span> {recipe.name}</p>
                             <p><span className="font-bold">Description:</span> {recipe.description}</p>
                             <p><span className="font-bold">Ingredients:</span> {recipe.ingredients}</p>
-                            <p><span className="font-bold">Author:</span> {recipe.user_name}</p>
+                            <p>
+                                <span className="font-bold">Author: </span> 
+                                <Link to={`/:${recipe.user_username}`} className="border-b-2 border-black">{recipe.user_username}</Link>
+                            </p>
                         </div>
                         <div className="flex flex-col items-center">
                             <img src={recipe.image} alt="Recipe image" className="rounded-xl" width='70%'/>
