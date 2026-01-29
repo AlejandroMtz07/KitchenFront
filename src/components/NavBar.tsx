@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Link, useLocation } from "react-router-dom";
 
 
@@ -9,6 +10,13 @@ export default function NavBar() {
         '/recipes/book',
         '/recipes/new'
     ]
+
+    const queryClient = useQueryClient();
+
+    const logout = ()=>{
+        localStorage.removeItem('token');
+        queryClient.invalidateQueries({queryKey:['recipes']});
+    }
 
     return (
 
@@ -31,11 +39,15 @@ export default function NavBar() {
                 {protectedLinks.includes(location.pathname)? 
                     <Link 
                         to={'/'} 
-                        className="text-right text-sm border-b-black border-b-2 uppercase font-extralight">Logout
+                        className="text-right text-sm border-b-black border-b-2 uppercase font-extralight"
+                        onClick={logout}
+                    >
+                            Logout
                     </Link>:
                     <Link
                         to={'/auth/login'}
-                        className="text-right text-sm border-b-black border-b-2 uppercase font-extralight">
+                        className="text-right text-sm border-b-black border-b-2 uppercase font-extralight"
+                    >
                         Login
                     </Link>
                 }

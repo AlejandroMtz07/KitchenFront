@@ -42,7 +42,7 @@ export default function RecipesView() {
                         <input 
                             type="text" id="searchTerm" 
                             placeholder="Search by recipe name, author or ingredients" 
-                            className="ml-5 lg:w-96 text-xs w-40 bg-transparent bg-gray-200 p-4 rounded"
+                            className="ml-5 lg:w-96 text-xs w-56 bg-transparent bg-gray-200 p-4 rounded"
                             value={searchTerm}
                             onChange={(e)=>setSearchTerm(e.target.value)}
                         />
