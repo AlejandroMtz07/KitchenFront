@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRecipes } from "../api/RecipesApi";
 import { Link, Navigate } from "react-router-dom";
-import {ArrowPathIcon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/react/24/outline';
+import {ArrowPathIcon, FaceFrownIcon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import { useMemo, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 
@@ -32,7 +32,7 @@ export default function RecipesView() {
     )
 
     return (
-        data &&
+        data?.length!>0 ?
         <>
             <h1 className="text-center p-5 mt-5 font-extralight text-2xl uppercase">
                 !Your amazing recipe book¡
@@ -53,13 +53,25 @@ export default function RecipesView() {
                         <Link to={'/recipes/new'}>New recipe</Link>
                     </div>
                 </div>
-            <div className="lg:p-20 p-10 lg:gap-10 gap-5
+            <div className="lg:p-20 p-5 lg:gap-10 gap-5
                 flex flex-col text-center"
             >
                 {handleInputsearch && handleInputsearch.map(recipe => (
                     <RecipeCard recipe={recipe} key={recipe.id}/>
                 ))}
             </div>
-        </>
+        </> : 
+        <div className="flex flex-col items-center justify-center p-10">
+            <div className="flex items-center">
+                <h1 className="text-center font-extralight text-2xl p-5">
+                    There's any recipes saved 
+                </h1>
+                <FaceFrownIcon width={20} className="w-6 h-6"/>
+            </div>
+            <p className="text-xs uppercase">
+                Check for more recipes 
+                <Link to={'/recipes'} className="text-blue-700 font-bold"> here</Link>
+            </p>
+        </div>
     )
 }

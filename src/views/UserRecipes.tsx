@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { PublicRecipe } from "../types";
 import RecipeCard from "../components/RecipeCard";
 import { ArrowLeftIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import NotFoundView from "./NotFoundView";
 
 
 export default function UserRecipes() {
@@ -21,13 +22,15 @@ export default function UserRecipes() {
     }
 
     if (isError) {
-        return //Return 404 not found
+        return <NotFoundView/>
     }
 
     if (isLoading) return (
-        <div className="flex justify-center items-center h-screen animate-spin">
-            <ArrowPathIcon height={40} width={40} />
-        </div>
+        <ArrowPathIcon 
+            height={40} 
+            width={40}  
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        />
     )
 
     return (
