@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../config/axios";
 import { useDebounce } from "../hooks";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function SearchInput() {
 
@@ -37,21 +38,31 @@ export default function SearchInput() {
 
     return (
         <div className="flex flex-col">
-            <input
-                type="text"
-                className="border-2 border-gray-200 p-2 rounded"
-                placeholder="Search by username..."
-                onChange={handleInputChange}
-            />
-            {usernames ? 
-                usernames.usernames.map(user => (
-                        <Link to={`/${user.username}`} key={user.username}>
-                            {user.username}
-                        </Link>
-                    )
-                ) 
-                : 
-                <p></p>}
+            <div className="flex flex-row gap-3">
+                <input
+                    type="text"
+                    className="border-2 border-gray-200 p-2 rounded"
+                    placeholder="Search by username..."
+                    value={search}
+                    onChange={handleInputChange}
+                />
+                <XMarkIcon width={20} onClick={()=>setSearch('')}/>
+            </div>
+            <div 
+                className={`transition-opacity duration-500 ${usernames ? 'opacity-100' : 'opacity-0'} flex flex-col`}
+            >
+                {usernames ? 
+                    usernames.usernames.map(user => (
+                            <Link 
+                                to={`/${user.username}`} 
+                                key={user.username}
+                                className="bg-gray-200 p-2 rounded mt-1"
+                            >
+                                {user.username}
+                            </Link>)) 
+                    : 
+                    <p></p>}
+            </div>
         </div>
     )
 }
