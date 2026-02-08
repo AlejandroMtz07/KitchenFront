@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../config/axios";
 import { useDebounce } from "../hooks";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function SearchInput() {
 
@@ -11,13 +11,13 @@ export default function SearchInput() {
 
     type DatabaseUsernames = {
         usernames: [
-            {username: string}
+            { username: string }
         ]
     }
 
     const debounced = useDebounce(search, 400)
-    
-    const { data:usernames } = useQuery<DatabaseUsernames>({
+
+    const { data: usernames, isLoading } = useQuery<DatabaseUsernames>({
         queryKey: ['usernames', debounced],
         queryFn: () => searchUsers(debounced),
         retry: 1,
@@ -26,7 +26,7 @@ export default function SearchInput() {
     });
 
     const searchUsers = async (username: string) => {
-        const {data} = await api.get(
+        const { data } = await api.get(
             `/users/${username}`
         )
         return data
@@ -41,26 +41,34 @@ export default function SearchInput() {
             <div className="flex flex-row gap-3">
                 <input
                     type="text"
-                    className="border-2 border-gray-200 p-2 rounded"
-                    placeholder="Search by username..."
+                    className="border-2 border-gray-300 p-2 rounded focus:bg-gray-100"
+                    placeholder="Search username profile."
                     value={search}
                     onChange={handleInputChange}
                 />
-                <XMarkIcon width={20} onClick={()=>setSearch('')}/>
+                <XMarkIcon width={20} onClick={() => setSearch('')} className="cursor-pointer" />
             </div>
-            <div 
-                className={`transition-opacity duration-500 ${usernames ? 'opacity-100' : 'opacity-0'} flex flex-col`}
+            <div
+                className={`transition-opacity
+                    duration-700 ${usernames ? 'opacity-100' : 'opacity-0'} flex flex-col`
+                }
             >
-                {usernames ? 
+                {isLoading && (
+                    <div className="flex justify-center mt-5 animate-spin w-fit">
+                        <ArrowPathIcon width={20} />
+                    </div>
+                )}
+                {usernames ?
                     usernames.usernames.map(user => (
-                            <Link 
-                                to={`/${user.username}`} 
-                                key={user.username}
-                                className="bg-gray-200 p-2 rounded mt-1"
-                            >
-                                {user.username}
-                            </Link>)) 
-                    : 
+                        <Link
+                            to={`/${user.username}`}
+                            key={user.username}
+                            className="bg-gray-100 p-2 rounded mt-1 cursor-pointer 
+                                    text-center hover:bg-gray-200"
+                        >
+                            {user.username}
+                        </Link>))
+                    :
                     <p></p>}
             </div>
         </div>
