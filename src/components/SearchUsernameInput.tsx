@@ -5,7 +5,7 @@ import api from "../config/axios";
 import { useDebounce } from "../hooks";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-export default function SearchInput() {
+export default function SearchUsernameInput() {
 
     const [search, setSearch] = useState("");
 

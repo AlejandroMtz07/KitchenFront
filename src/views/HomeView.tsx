@@ -1,5 +1,5 @@
 import NavBar from "../components/NavBar";
-import SearchInput from "../components/SearchInput";
+import SearchUsernameInput from "../components/SearchUsernameInput";
 
 
 export default function HomeView() {
@@ -7,7 +7,7 @@ export default function HomeView() {
         <div className="bg-white min-h-screen">
             <NavBar />
             <div className="lg:p-5 p-3 flex justify-start ml-2 rounded">
-                <SearchInput/>
+                <SearchUsernameInput/>
             </div>
             <main className="lg:grid lg:grid-cols-2 p-4 flex flex-col">
                 <div className="p-4 mt-40 lg:m-20 border-gray-200 flex items-center rounded-lg
