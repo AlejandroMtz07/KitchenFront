@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRecipes } from "../api/RecipesApi";
 import { Link, Navigate } from "react-router-dom";
-import {ArrowDownIcon, ArrowDownTrayIcon, ArrowPathIcon, FaceFrownIcon, MagnifyingGlassIcon, PlusIcon, XMarkIcon} from '@heroicons/react/24/outline';
+import { ArrowDownTrayIcon, ArrowPathIcon, FaceFrownIcon, MagnifyingGlassIcon, PlusIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import { useMemo, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 
@@ -64,8 +64,8 @@ export default function RecipesView() {
                         </div>
                     </div>
                 </div>
-            <div className="lg:p-20 p-5 lg:gap-10 gap-5
-                flex flex-col text-center"
+            <div className="lg:p-10 p-5 lg:gap-10 gap-5
+                flex flex-col text-center lg:grid grid-cols-2"
             >
                 {handleInputsearch && handleInputsearch.map(recipe => (
                     <RecipeCard recipe={recipe} key={recipe.id}/>

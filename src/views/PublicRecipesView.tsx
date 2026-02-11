@@ -18,10 +18,12 @@ export default function PublicRecipesView() {
         getRecipes();
     }, [])
     return (
-        <>
+        <div className="m-10">
             {publicRecipes.map(recipe => (
-                <RecipeCard key={recipe.id} recipe={recipe} />
+                <div className="mb-10">
+                    <RecipeCard key={recipe.id} recipe={recipe} />
+                </div>
             ))}
-        </>
+        </div>
     )
 }
