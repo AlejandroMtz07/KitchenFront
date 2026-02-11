@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../config/axios";
 import { useDebounce } from "../hooks";
-import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ArrowPathIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function SearchUsernameInput() {
 
@@ -39,6 +39,7 @@ export default function SearchUsernameInput() {
     return (
         <div className="flex flex-col">
             <div className="flex flex-row gap-3">
+                <MagnifyingGlassIcon width={20} className="ml-10"/>
                 <input
                     type="text"
                     className="border-2 border-gray-300 p-2 rounded focus:bg-gray-100"

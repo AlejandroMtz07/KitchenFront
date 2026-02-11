@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRecipes } from "../api/RecipesApi";
 import { Link, Navigate } from "react-router-dom";
-import {ArrowPathIcon, FaceFrownIcon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/react/24/outline';
+import {ArrowDownIcon, ArrowDownTrayIcon, ArrowPathIcon, FaceFrownIcon, MagnifyingGlassIcon, PlusIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import { useMemo, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 
@@ -37,7 +37,7 @@ export default function RecipesView() {
             <h1 className="text-center p-5 mt-5 font-extralight text-2xl uppercase">
                 !Your amazing recipe book¡
             </h1>
-                <div className="flex lg:flex-row flex-col lg:m-10 lg:ml-20 items-center">
+                <div className="flex lg:flex-row flex-col lg:m-10 lg:ml-20 items-center print:hidden">
                     <label htmlFor="searchTerm" className="flex flex-row">
                         <MagnifyingGlassIcon width={20}/>
                         <input 
@@ -49,8 +49,19 @@ export default function RecipesView() {
                         />
                         <XMarkIcon width={20} className="ml-5 cursor-pointer" onClick={()=>setSearchTerm('')}/>
                     </label>
-                    <div className="flex flex-row p-2 gap-10 border-b-black border-b-2  lg:ml-10 uppercase text-xs">
-                        <Link to={'/recipes/new'}>New recipe</Link>
+                    <div className="flex flex-row gap-2">
+                        <div className="flex flex-row p-2 gap-2 border-b-black border-b-2 
+                            lg:ml-10 uppercase text-xs print:hidden">
+                            <PlusIcon width={20}/>
+                            <Link to={'/recipes/new'}>New recipe</Link>
+                        </div>
+                        <div className="flex flex-row p-2 gap-2 border-b-black border-b-2 
+                            lg:ml-10 text-xs print:hidden">
+                                <ArrowDownTrayIcon width={20}/>
+                            <button onClick={()=>window.print()} className="uppercase">
+                                Download
+                            </button>
+                        </div>
                     </div>
                 </div>
             <div className="lg:p-20 p-5 lg:gap-10 gap-5
