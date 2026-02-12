@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import api from "../config/axios"
 import type { PublicRecipe } from "../types"
 import { toast } from "sonner"
+import { GlobeAltIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline"
 
 type RecipeCardProps = {
     recipe: PublicRecipe
@@ -36,7 +37,13 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                 border-b-gray-300 shadow-sm shadow-gray-300 align-middle 
                 flex flex-row items-center justify-between mt-10 lg:mt-0 lg:p-20">
                 <div className="text-center lg:p-10 p-5 lg:text-lg text-sm">
-                    <p className="font-extralight">{recipe.name}</p>
+                    <p
+                        className="font-extralight flex flex-row justify-center gap-2">
+                        {recipe.name}
+                        {recipe.is_private ? 
+                            (recipe.is_private === '0' ? <GlobeAltIcon width={20} title="Public" /> : <LockClosedIcon width={20} title="Private" />) : 
+                            <GlobeAltIcon width={20} title="Public" />}
+                    </p>
                     <p className="font-extralight">{recipe.description}</p>
                     {recipe.user_username && <p>
                         Author:
