@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard"
 import type { BackendRecipes, PreviewRecipe, PublicRecipe } from "../types"
 import api from "../config/axios";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useDebounce } from "../hooks";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
@@ -52,15 +52,17 @@ export default function PublicRecipesView() {
     return (
         <div>
             <div className="flex flex-col lg:ml-20">
-                <div className="flex flex-row p-5 gap-3">
+                <label className="flex flex-row p-5 gap-3">
                     <MagnifyingGlassIcon width={20}/>
                     <input
                         type="text"
                         placeholder="Search recipes by name..."
                         className="border-2 border-gray-300 p-2 rounded focus:bg-gray-100 w-52"
                         onChange={(e) => setSearch(e.target.value)}
+                        value={search}
                     />
-                </div>
+                    <XMarkIcon width={20} onClick={()=>setSearch('')} className="cursor-pointer"/>
+                </label>
                     {isError && 
                         <p className="bg-gray-200 w-52 ml-12 p-2 rounded text-center">
                             Any recipe found
@@ -68,13 +70,13 @@ export default function PublicRecipesView() {
                     }
                     {data && data?.recipes.map(recipe => (
                         <div 
-                            className="w-52 text-center bg-gray-200 rounded p-2 flex flex-row ml-12"
+                            className="w-52 text-center bg-gray-200 rounded p-2 flex flex-row ml-12 font-extralight"
                             key={recipe.user_name.concat(recipe.name)}
                         >
                             <Link
                                 to={'/' + recipe.user_name}
                             >
-                                {recipe.name} <span className="font-semibold">Author:</span> {recipe.user_name}
+                                {recipe.name} <span className="font-normal">Author:</span> {recipe.user_name}
                             </Link>
                         </div>
                     ))}

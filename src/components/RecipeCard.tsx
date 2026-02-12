@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import api from "../config/axios"
 import type { PublicRecipe } from "../types"
 import { toast } from "sonner"
-import { GlobeAltIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline"
+import { GlobeAltIcon, LockClosedIcon } from "@heroicons/react/24/outline"
 
 type RecipeCardProps = {
     recipe: PublicRecipe
