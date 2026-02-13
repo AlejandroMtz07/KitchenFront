@@ -2,20 +2,25 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import api from "../config/axios"
 import type { PublicRecipe } from "../types"
 import { toast } from "sonner"
-import { Bars3Icon, GlobeAltIcon, LockClosedIcon, PencilIcon } from "@heroicons/react/24/outline"
+import { GlobeAltIcon, LockClosedIcon, PencilIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
-import EditMenu from "./EditMenu"
+import { useForm } from "react-hook-form"
+import ErrorMessage from "./ErrorMessage"
 
 type RecipeCardProps = {
     recipe: PublicRecipe
 }
 
+type EditRecipe = {
+    name: string,
+    description: string,
+    is_private: string
+}
+
 export default function RecipeCard({ recipe }: RecipeCardProps) {
 
     const navigate = useNavigate();
-
     const location = useLocation();
-
     const username = localStorage.getItem('username');
 
     const handleAddRecipe = async (recipe: PublicRecipe) => {
@@ -36,8 +41,11 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
     }
 
     const [isEditing, setIsEditing] = useState(false);
-    const handleEditRecipe = async () => {
-        setIsEditing(prev => !prev)
+    const { handleSubmit,reset, register, formState: { errors } } = useForm<EditRecipe>();
+
+    const handleEdit = async (data: EditRecipe) => {
+        console.log(data)
+        console.log()
     }
 
     return (
@@ -46,44 +54,91 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                 border-b-gray-300 shadow-sm shadow-gray-300 align-middle 
                 flex flex-row items-center justify-between mt-10 lg:mt-0 lg:p-20">
                 <div className="text-center lg:p-10 p-5 lg:text-lg text-sm">
-                    <p
-                        className="font-extralight flex flex-row justify-center gap-2">
-                        {recipe.name}
-                        {recipe.is_private ?
-                            (recipe.is_private === '0' ? <GlobeAltIcon width={20} title="Public" /> : <LockClosedIcon width={20} title="Private" />) :
-                            <GlobeAltIcon width={20} title="Public" />}
-                    </p>
-                    <p className="font-extralight">{recipe.description}</p>
-                    {recipe.user_username && <p>
-                        Author:
-                        <Link
-                            to={`/${recipe.user_username}`}
-                            className="font-extralight border-b-2 border-black"
-                        >
-                            {' '}{recipe.user_username}
-                        </Link>
-                        <br />
-                    </p>}
-                    {location.pathname !== '/recipes/book' && <button
-                        className="lg:mt-10 mt-2 text-xs p-2 uppercase lg:border-b-2 border-black "
-                        onClick={() => handleAddRecipe(recipe)}
-                    >
-                        Add recipe
-                    </button>}
+                    {
+                        !isEditing ?
+                            <>
+                                <p
+                                    className="font-extralight flex flex-row justify-center gap-2">
+                                    {recipe.name}
+                                    {recipe.is_private ?
+                                        (recipe.is_private === '0' ? <GlobeAltIcon width={20} title="Public" /> : <LockClosedIcon width={20} title="Private" />) :
+                                        <GlobeAltIcon width={20} title="Public" />}
+                                </p>
+                                <p className="font-extralight">{recipe.description}</p>
+                                <p className="font-extralight">{recipe.ingredients}</p>
+                                {recipe.user_username && <p>
+                                    Author:
+                                    <Link
+                                        to={`/${recipe.user_username}`}
+                                        className="font-extralight border-b-2 border-black"
+                                    >
+                                        {' '}{recipe.user_username}
+                                    </Link>
+                                    <br />
+                                </p>}
+                                {location.pathname !== '/recipes/book' && <button
+                                    className="lg:mt-10 mt-2 text-xs p-2 uppercase lg:border-b-2 border-black "
+                                    onClick={() => handleAddRecipe(recipe)}
+                                >
+                                    Add recipe
+                                </button>}
+                            </> :
+                            <>
+                                <form className="flex flex-col items-center *:m-1" onSubmit={handleSubmit(handleEdit)}>
+                                    <label className="font-extralight">Recipe name</label>
+                                    <input
+                                        type="text"
+                                        placeholder={recipe.name}
+                                        id="name"
+                                        className="font-extralight bg-gray-100 w-full p-1"
+                                        {...register('name', { required: 'Name cannot be empty' })}
+                                    />
+                                    {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+                                    <label className="font-extralight">Recipe description</label>
+                                    <input
+                                        type="text"
+                                        placeholder={recipe.description}
+                                        className="font-extralight bg-gray-100 w-full p-1"
+                                        {...register('description', { required: 'Description cannot be empty' })}
+                                    />
+                                    {errors.description && <ErrorMessage>{errors.description.message}</ErrorMessage>}
+                                    <select 
+                                        className="bg-gray-100 w-full text-center font-extralight"
+                                        {...register('is_private')}
+                                    >
+                                        <option value="false">Public</option>
+                                        <option value="true">Private</option>
+                                    </select>
+                                    <input
+                                        type="submit"
+                                        value="Save"
+                                        className="font-extralight border-b-2 
+                                        border-b-black w-20 mt-2 cursor-pointer"
+                                    />
+                                </form>
+                            </>
+                    }
                 </div>
                 <div className="flex flex-col">
                     <img src={recipe.image} alt={recipe.description} className="lg:w-40 w-32 rounded-3xl mt-2" />
                     <div className="flex lg:justify-end p-2">
-                        {username === recipe.user_username ? 
-                            <Bars3Icon
-                            width={20}
-                            className="print:hidden mt-2 cursor-pointer bg-gray-100"
-                            title="Edit recipe"
-                            onClick={handleEditRecipe}
-                            /> : ''}
+                        {username === recipe.user_username ?
+                            (!isEditing ?
+                                <PencilIcon
+                                    width={20}
+                                    className="print:hidden mt-2 cursor-pointer"
+                                    title="Edit recipe"
+                                    onClick={() => setIsEditing(!isEditing)}
+                                /> :
+                                <XMarkIcon
+                                    width={20}
+                                    title="Close"
+                                    className="print:hidden mt-2 cursor-pointer"
+                                    onClick={()=>{setIsEditing(!isEditing);reset()}}
+                                />
+                            ) : ''}
                     </div>
                 </div>
-                {isEditing && <EditMenu recipe={recipe} isEditing={isEditing} handleEditRecipe={handleEditRecipe}/>}
             </div>
         </>
     )
