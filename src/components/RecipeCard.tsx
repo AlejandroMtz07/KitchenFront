@@ -2,7 +2,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import api from "../config/axios"
 import type { PublicRecipe } from "../types"
 import { toast } from "sonner"
-import { GlobeAltIcon, LockClosedIcon } from "@heroicons/react/24/outline"
+import { Bars3Icon, GlobeAltIcon, LockClosedIcon, PencilIcon } from "@heroicons/react/24/outline"
+import { useState } from "react"
+import EditMenu from "./EditMenu"
 
 type RecipeCardProps = {
     recipe: PublicRecipe
@@ -13,6 +15,8 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
     const navigate = useNavigate();
 
     const location = useLocation();
+
+    const username = localStorage.getItem('username');
 
     const handleAddRecipe = async (recipe: PublicRecipe) => {
         const token = localStorage.getItem('token');
@@ -31,6 +35,11 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
         }
     }
 
+    const [isEditing, setIsEditing] = useState(false);
+    const handleEditRecipe = async () => {
+        setIsEditing(prev => !prev)
+    }
+
     return (
         <>
             <div className="rounded-3xl lg:rounded-none bg-white-200 border-2 
@@ -40,8 +49,8 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                     <p
                         className="font-extralight flex flex-row justify-center gap-2">
                         {recipe.name}
-                        {recipe.is_private ? 
-                            (recipe.is_private === '0' ? <GlobeAltIcon width={20} title="Public" /> : <LockClosedIcon width={20} title="Private" />) : 
+                        {recipe.is_private ?
+                            (recipe.is_private === '0' ? <GlobeAltIcon width={20} title="Public" /> : <LockClosedIcon width={20} title="Private" />) :
                             <GlobeAltIcon width={20} title="Public" />}
                     </p>
                     <p className="font-extralight">{recipe.description}</p>
@@ -62,7 +71,19 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                         Add recipe
                     </button>}
                 </div>
-                <img src={recipe.image} alt={recipe.description} className="lg:w-40 w-32 rounded-3xl" />
+                <div className="flex flex-col">
+                    <img src={recipe.image} alt={recipe.description} className="lg:w-40 w-32 rounded-3xl mt-2" />
+                    <div className="flex lg:justify-end p-2">
+                        {username === recipe.user_username ? 
+                            <Bars3Icon
+                            width={20}
+                            className="print:hidden mt-2 cursor-pointer bg-gray-100"
+                            title="Edit recipe"
+                            onClick={handleEditRecipe}
+                            /> : ''}
+                    </div>
+                </div>
+                {isEditing && <EditMenu recipe={recipe} isEditing={isEditing} handleEditRecipe={handleEditRecipe}/>}
             </div>
         </>
     )

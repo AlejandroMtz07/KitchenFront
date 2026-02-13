@@ -29,6 +29,7 @@ export default function LoginView() {
             )
             toast.success(data.msg);
             localStorage.setItem('token', data.token);
+            localStorage.setItem('username',data.username)
             navigate('/recipes/book');
             reset();
         } catch (error) {
