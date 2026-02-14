@@ -6,6 +6,7 @@ import { GlobeAltIcon, LockClosedIcon, PencilIcon, XMarkIcon } from "@heroicons/
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import ErrorMessage from "./ErrorMessage"
+import { isAxiosError } from "axios"
 
 type RecipeCardProps = {
     recipe: PublicRecipe
@@ -41,11 +42,24 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
     }
 
     const [isEditing, setIsEditing] = useState(false);
+    const [editingId, setEditingId] = useState(0);
     const { handleSubmit,reset, register, formState: { errors } } = useForm<EditRecipe>();
 
-    const handleEdit = async (data: EditRecipe) => {
-        console.log(data)
-        console.log()
+    const handleEdit = async (updatedRecipe: EditRecipe) => {
+        try {
+            const token = localStorage.getItem('token');
+            const {data} = await api.put(
+                `/recipes/${editingId}`,
+                updatedRecipe,
+                {headers: {Authorization: `Bearer ${token}`}}
+            );
+            toast.success(data.msg);
+        } catch (error) {
+            if(isAxiosError(error) && error.response){
+                toast.error(error.response.data)
+            }
+        }
+        
     }
 
     return (
@@ -128,13 +142,13 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                     width={20}
                                     className="print:hidden mt-2 cursor-pointer"
                                     title="Edit recipe"
-                                    onClick={() => setIsEditing(!isEditing)}
+                                    onClick={() => {setIsEditing(!isEditing);setEditingId(recipe.id)}}
                                 /> :
                                 <XMarkIcon
                                     width={20}
                                     title="Close"
                                     className="print:hidden mt-2 cursor-pointer"
-                                    onClick={()=>{setIsEditing(!isEditing);reset()}}
+                                    onClick={()=>{setIsEditing(!isEditing);reset();setEditingId(0)}}
                                 />
                             ) : ''}
                     </div>
