@@ -39,9 +39,11 @@ export default function UserRecipes() {
                 <ArrowLeftIcon onClick={handleReturn} width={30} className="cursor-pointer"/>
                 {username}'s recipes
             </h1>
-            {data?.map(recipe => (
-                <RecipeCard recipe={recipe} key={recipe.id} />
-            ))}
+            <div className="p-20 *:mb-10">
+                {data?.map(recipe => (
+                    <RecipeCard recipe={recipe} key={recipe.id} />
+                ))}
+            </div>
         </div>
     )
 }
