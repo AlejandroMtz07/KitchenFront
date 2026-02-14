@@ -99,18 +99,21 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             </> :
                             <>
                                 <form className="flex flex-col items-center *:m-1" onSubmit={handleSubmit(handleEdit)}>
-                                    <label className="font-extralight">Recipe name</label>
+                                    <label className="font-extralight" htmlFor="name">Recipe name</label>
                                     <input
                                         type="text"
                                         placeholder={recipe.name}
+                                        autoComplete="off"
                                         id="name"
                                         className="font-extralight bg-gray-100 w-full p-1"
                                         {...register('name', { required: 'Name cannot be empty' })}
                                     />
                                     {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
-                                    <label className="font-extralight">Recipe description</label>
+                                    <label className="font-extralight" htmlFor="description">Recipe description</label>
                                     <input
                                         type="text"
+                                        id="description"
+                                        autoComplete="off"
                                         placeholder={recipe.description}
                                         className="font-extralight bg-gray-100 w-full p-1"
                                         {...register('description', { required: 'Description cannot be empty' })}
@@ -120,8 +123,8 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                         className="bg-gray-100 w-full text-center font-extralight"
                                         {...register('is_private')}
                                     >
-                                        <option value="false">Public</option>
-                                        <option value="true">Private</option>
+                                        <option value="0">Public</option>
+                                        <option value="1">Private</option>
                                     </select>
                                     <input
                                         type="submit"
