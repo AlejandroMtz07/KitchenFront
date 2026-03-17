@@ -42,7 +42,7 @@ export default function SearchUsernameInput() {
                 <MagnifyingGlassIcon width={20} className="ml-10"/>
                 <input
                     type="text"
-                    className="border-2 border-gray-300 p-2 rounded focus:bg-gray-100"
+                    className="border-b-2 border-b-gray-300 p-2 focus:bg-gray-100"
                     placeholder="Search username profile."
                     value={search}
                     onChange={handleInputChange}

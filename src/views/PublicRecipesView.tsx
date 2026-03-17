@@ -57,7 +57,7 @@ export default function PublicRecipesView() {
                     <input
                         type="text"
                         placeholder="Search recipes by name..."
-                        className="border-2 border-gray-300 p-2 rounded focus:bg-gray-100 w-52"
+                        className="border-b-2 border-b-gray-300 p-2 focus:bg-gray-100 w-52"
                         onChange={(e) => setSearch(e.target.value)}
                         value={search}
                     />

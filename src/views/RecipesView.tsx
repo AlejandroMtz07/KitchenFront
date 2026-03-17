@@ -52,12 +52,12 @@ export default function RecipesView() {
                     <div className="flex flex-row gap-2">
                         <div className="flex flex-row p-2 gap-2 border-b-black border-b-2 
                             lg:ml-10 uppercase text-xs print:hidden">
-                            <PlusIcon width={20}/>
+                            <PlusIcon width={20} />
                             <Link to={'/recipes/new'}>New recipe</Link>
                         </div>
                         <div className="flex flex-row p-2 gap-2 border-b-black border-b-2 
                             lg:ml-10 text-xs print:hidden">
-                                <ArrowDownTrayIcon width={20}/>
+                                <ArrowDownTrayIcon width={20} className="text-green-600" strokeWidth={3}/>
                             <button onClick={()=>window.print()} className="uppercase">
                                 Download
                             </button>

@@ -75,7 +75,9 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                     className="font-extralight flex flex-row justify-center gap-2">
                                     {recipe.name}
                                     {recipe.is_private ?
-                                        (recipe.is_private === '0' ? <GlobeAltIcon width={20} title="Public" /> : <LockClosedIcon width={20} title="Private" />) :
+                                        (recipe.is_private === '0' ? 
+                                        <GlobeAltIcon width={20} title="Public" className="text-green-600"/> : 
+                                        <LockClosedIcon width={20} title="Private" className="text-orange-600"/>) :
                                         <GlobeAltIcon width={20} title="Public" />}
                                 </p>
                                 <p className="font-extralight">{recipe.description}</p>
@@ -143,14 +145,14 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             (!isEditing ?
                                 <PencilIcon
                                     width={20}
-                                    className="print:hidden mt-2 cursor-pointer"
+                                    className="print:hidden mt-2 cursor-pointer text-blue-700"
                                     title="Edit recipe"
                                     onClick={() => {setIsEditing(!isEditing);setEditingId(recipe.id)}}
                                 /> :
                                 <XMarkIcon
                                     width={20}
                                     title="Close"
-                                    className="print:hidden mt-2 cursor-pointer"
+                                    className="print:hidden mt-2 cursor-pointer text-red-700"
                                     onClick={()=>{setIsEditing(!isEditing);reset();setEditingId(0)}}
                                 />
                             ) : ''}
