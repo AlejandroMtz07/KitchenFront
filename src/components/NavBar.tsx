@@ -1,4 +1,4 @@
-import { ArrowLeftStartOnRectangleIcon, ArrowRightEndOnRectangleIcon, ArrowTopRightOnSquareIcon, BookOpenIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftStartOnRectangleIcon, ArrowRightEndOnRectangleIcon, ArrowTopRightOnSquareIcon, BookmarkIcon, BookOpenIcon } from "@heroicons/react/24/outline";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link, useLocation } from "react-router-dom";
 
@@ -71,6 +71,14 @@ export default function NavBar() {
                 >
                     <BookOpenIcon width={20}/>
                     Recipes
+                </Link>
+                <Link 
+                    to={'/recipes/book'}
+                    className="text-right text-xs lg:text-sm border-b-black
+                        border-b-2 uppercase font-extralight flex flex-row gap-2 p-2"
+                >
+                    <BookmarkIcon width={20}/>
+                    Saved
                 </Link>
             </div>
         </nav>

@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080/api'
+    baseURL: 'https://kitchenapi-7cro.onrender.com/'
 })
 
 export default api;
