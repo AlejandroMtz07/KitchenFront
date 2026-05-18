@@ -70,12 +70,13 @@ export default function RecipesView() {
                     </div>
                 </div>
                 {/* List of filtered recipes or just all the recipes */}
-                <div className="lg:m-20 m-5 grid grid-cols-3 gap-5">
+                <div className="lg:m-20 m-5 lg:grid grid-cols-3 gap-5">
                     {handleInputsearch && handleInputsearch.map(recipe => (
                         <RecipeCard recipe={recipe} key={recipe.id} />
                     ))}
                 </div>
             </> :
+            // Validator if there's any recipes saved
             <div className="flex flex-col items-center justify-center p-10">
                 <div className="flex items-center">
                     <h1 className="text-center font-extralight text-2xl p-5">

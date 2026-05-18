@@ -81,11 +81,10 @@ export default function PublicRecipesView() {
                         </div>
                     ))}
             </div>
-            <div className="m-10 lg:m-20">
+            {/* List of public recipes */}
+            <div className="lg:m-20 m-5 lg:grid grid-cols-3 gap-5">
                 {publicRecipes.map(recipe => (
-                    <div className="mb-10" key={recipe.id}>
-                        <RecipeCard key={recipe.id} recipe={recipe} />
-                    </div>
+                    <RecipeCard key={recipe.id} recipe={recipe} />
                 ))}
             </div>
 

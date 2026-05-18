@@ -43,31 +43,34 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(0);
-    const { handleSubmit,reset, register, formState: { errors } } = useForm<EditRecipe>();
+    const { handleSubmit, reset, register, formState: { errors } } = useForm<EditRecipe>();
 
     const handleEdit = async (updatedRecipe: EditRecipe) => {
         try {
             const token = localStorage.getItem('token');
-            const {data} = await api.put(
+            const { data } = await api.put(
                 `/recipes/${editingId}`,
                 updatedRecipe,
-                {headers: {Authorization: `Bearer ${token}`}}
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             toast.success(data.msg);
         } catch (error) {
-            if(isAxiosError(error) && error.response){
+            if (isAxiosError(error) && error.response) {
                 toast.error(error.response.data)
             }
         }
-        
+
     }
 
     return (
         <>
-            <div className=" lg:rounded-none bg-white-200 border-2 
+            {/* Recipe container */}
+            <div className="bg-white-200 border-2 
                 border-b-gray-300 shadow-sm shadow-gray-300 align-middle 
-                flex flex-col items-center justify-between lg:mb-10 mb-5 ">
-                <img src={recipe.image} alt={recipe.description} className="lg:w-full w-32" />
+                flex flex-col items-center justify-between lg:mb-10 mb-5">
+                {/* Recipe image */}
+                <img src={recipe.image} alt={recipe.description} className="lg:w-full w-32 lg:mt-0 mt-5" />
+                {/* Recipe text */}
                 <div className="text-center lg:p-5 p-2 lg:text-lg text-sm">
                     {
                         !isEditing ?
@@ -76,9 +79,9 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                     className="font-extralight flex flex-row justify-center gap-2">
                                     {recipe.name}
                                     {recipe.is_private ?
-                                        (recipe.is_private === '0' ? 
-                                        <GlobeAltIcon width={20} title="Public" className="text-green-600"/> : 
-                                        <LockClosedIcon width={20} title="Private" className="text-orange-600"/>) :
+                                        (recipe.is_private === '0' ?
+                                            <GlobeAltIcon width={20} title="Public" className="text-green-600" /> :
+                                            <LockClosedIcon width={20} title="Private" className="text-orange-600" />) :
                                         <GlobeAltIcon width={20} title="Public" />}
                                 </p>
                                 <p className="font-extralight">{recipe.description}</p>
@@ -122,7 +125,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                         {...register('description', { required: 'Description cannot be empty' })}
                                     />
                                     {errors.description && <ErrorMessage>{errors.description.message}</ErrorMessage>}
-                                    <select 
+                                    <select
                                         className="bg-gray-100 w-full text-center font-extralight"
                                         {...register('is_private')}
                                     >
@@ -141,19 +144,23 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                 </div>
                 <div className="flex flex-col">
                     <div className="flex lg:justify-end p-2">
+                        {/* Diplaying the button of edit and cancel edit recipe */}
                         {username === recipe.user_username ?
                             (!isEditing ?
-                                <PencilIcon
-                                    width={20}
-                                    className="print:hidden mt-2 cursor-pointer text-blue-700"
-                                    title="Edit recipe"
-                                    onClick={() => {setIsEditing(!isEditing);setEditingId(recipe.id)}}
-                                /> :
+                                <div>
+                                    <PencilIcon
+                                        width={20}
+                                        className="print:hidden mt-2 cursor-pointer text-blue-700"
+                                        title="Edit recipe"
+                                        onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}
+                                    />
+                                </div>
+                                :
                                 <XMarkIcon
                                     width={20}
                                     title="Close"
                                     className="print:hidden mt-2 cursor-pointer text-red-700"
-                                    onClick={()=>{setIsEditing(!isEditing);reset();setEditingId(0)}}
+                                    onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}
                                 />
                             ) : ''}
                     </div>
