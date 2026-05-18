@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import api from "../config/axios"
 import type { PublicRecipe } from "../types"
 import { toast } from "sonner"
-import { GlobeAltIcon, LockClosedIcon, PencilIcon, XMarkIcon } from "@heroicons/react/24/outline"
+import { GlobeAltIcon, LockClosedIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import ErrorMessage from "./ErrorMessage"
@@ -104,6 +104,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                 </button>}
                             </> :
                             <>
+                                {/* Form display when the user clicks the edit button */}
                                 <form className="flex flex-col items-center *:m-1" onSubmit={handleSubmit(handleEdit)}>
                                     <label className="font-extralight" htmlFor="name">Recipe name</label>
                                     <input
@@ -142,28 +143,25 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             </>
                     }
                 </div>
-                <div className="flex flex-col">
-                    <div className="flex lg:justify-end p-2">
-                        {/* Diplaying the button of edit and cancel edit recipe */}
-                        {username === recipe.user_username ?
-                            (!isEditing ?
-                                <div>
-                                    <PencilIcon
-                                        width={20}
-                                        className="print:hidden mt-2 cursor-pointer text-blue-700"
-                                        title="Edit recipe"
-                                        onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}
-                                    />
-                                </div>
-                                :
-                                <XMarkIcon
-                                    width={20}
-                                    title="Close"
-                                    className="print:hidden mt-2 cursor-pointer text-red-700"
-                                    onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}
-                                />
-                            ) : ''}
-                    </div>
+                <div className="p-2">
+                    {/* Checking if the user is the owner and the location is the private recipes book */}
+                    {username === recipe.user_username && location.pathname != '/recipes' ?
+                        (!isEditing ?
+                            // Pencil button for recipe edit
+                            <div className="bg-blue-300 p-1 w-20 rounded-sm flex justify-center">
+                                <button onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}>
+                                    Edit
+                                </button>
+                            </div>
+                            :
+                            // Cancel edit button
+                            <XMarkIcon
+                                width={20}
+                                title="Close"
+                                className="print:hidden mt-2 cursor-pointer text-red-700"
+                                onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}
+                            />
+                        ) : ''}
                 </div>
             </div>
         </>
