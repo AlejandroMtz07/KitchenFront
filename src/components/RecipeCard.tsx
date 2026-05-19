@@ -80,7 +80,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                     {recipe.name}
                                     {recipe.is_private ?
                                         (recipe.is_private === '0' ?
-                                            <GlobeAltIcon width={20} title="Public"/> :
+                                            <GlobeAltIcon width={20} title="Public" /> :
                                             <LockClosedIcon width={20} title="Private" />) :
                                         <GlobeAltIcon width={20} title="Public" />}
                                 </p>
@@ -148,20 +148,24 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                     {username === recipe.user_username && location.pathname != '/recipes' ?
                         (!isEditing ?
                             // Pencil button for recipe edit
-                            <div className="bg-green-600 p-2 w-32 rounded-sm flex justify-center gap-2">
-                                <button onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}>
-                                    Edit
-                                </button>
-                                <PencilIcon width={15}/>
-                            </div>
+
+                            <button 
+                                className="bg-green-600 p-2 w-32 rounded-sm flex justify-center gap-2"
+                                onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}
+                            >
+                                Edit
+                                <PencilIcon width={15} />
+                            </button>
                             :
                             // Cancel edit button
-                            <div className="bg-red-600 p-2 w-32 rounded-sm flex justify-center gap-2">
-                                <button onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}>
-                                    Cancel
-                                </button>
+                            <button
+                                className="bg-red-600 p-2 w-32 rounded-sm flex justify-center gap-2"
+                                onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}
+                            >
+                                Cancel
                                 <XMarkIcon width={20} />
-                            </div>
+                            </button>
+
                         ) : ''}
                 </div>
             </div>
