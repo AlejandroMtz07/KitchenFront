@@ -38,7 +38,7 @@ export default function NavBar() {
                         <img src="/kitchen-logo.svg" height={100} width={100} />
                     </Link>
                     <h1 className="uppercase font-extralight lg:text-3xl 
-                        text-lg lg:motion-preset-typewriter-[15] lg:motion-duration-[8s] lg:block hidden"
+                        text-lg motion-preset-typewriter-[15] motion-duration-[8s] block "
                     >
                         Kitchen Recipes
                     </h1>
