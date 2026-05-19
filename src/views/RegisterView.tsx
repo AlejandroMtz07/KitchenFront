@@ -61,14 +61,14 @@ export default function RegisterView() {
         <>
             <div
                 className="bg-white mt-20 p-10 text-center border-2 
-          border-gray-200 hover:shadow-lg transition rounded-lg -m-10"
+                border-gray-200 hover:shadow-lg transition rounded-lg -m-10"
             >
-                <h1 className="font-extralight text-2xl uppercase mb-10 tracking-wide">
-                    Register form
+                <h1 className="font-extralight text-2xl uppercase tracking-wide">
+                    Create account
                 </h1>
                 <form
                     onSubmit={handleSubmit(handleRegister)}
-                    className="lg:grid grid-cols-2 p-5 gap-4 flex flex-col"
+                    className="lg:grid grid-cols-2 p-1 gap-2 flex flex-col"
                 >
                     <div className="flex flex-col">
                         <label htmlFor="name" className="p-4 font-extralight text-sm">
@@ -156,12 +156,12 @@ export default function RegisterView() {
                     />
                 </form>
                 <div className="mt-10 lg:mt-5 uppercase text-xs font-extralight">
-                    Do you already have an account?{" "}
+                    <p>Do you already have an account?</p>
                     <Link
                         to={'/auth/login'}
                         className="text-blue-800 font-bold"
                     >
-                        Login
+                        ¡Login here!
                     </Link>
                 </div>
             </div>

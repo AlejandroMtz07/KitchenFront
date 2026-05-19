@@ -96,12 +96,12 @@ export default function LoginView() {
                 />
             </form>
             <div className="mt-10 uppercase text-xs font-extralight">
-                Dont have an account yet?{" "}
+                <p>Dont have an account yet?</p>
                 <Link 
                     to={'/auth/register'} 
                     className="text-blue-800 font-bold"
                 >
-                    Register
+                    ¡Register here!
                 </Link>
             </div>
         </div>
