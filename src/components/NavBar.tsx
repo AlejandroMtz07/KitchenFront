@@ -114,7 +114,7 @@ export default function NavBar() {
                             onClick={logout}
                         >
                             <ArrowLeftStartOnRectangleIcon width={20} />
-                            <p>Login</p>
+                            <p>Logout</p>
                         </Link>
 
                     ) : (
