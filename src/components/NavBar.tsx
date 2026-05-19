@@ -109,21 +109,18 @@ export default function NavBar() {
                 <div className="flex flex-col gap-4 p-4 lg:hidden border-t border-gray-200 bg-white">
 
                     {protectedLinks.includes(location.pathname) ? (
-
                         <Link
                             to={'/'}
                             onClick={logout}
-                            className="mobile-nav-link"
                         >
                             <ArrowLeftStartOnRectangleIcon width={20} />
-                            Logout
+                            <p>Login</p>
                         </Link>
 
                     ) : (
 
                         <Link
                             to={'/auth/login'}
-                            className="mobile-nav-link"
                         >
                             <ArrowTopRightOnSquareIcon width={20} />
                             Login
@@ -135,7 +132,6 @@ export default function NavBar() {
 
                         <Link
                             to={'/auth/register'}
-                            className="mobile-nav-link"
                         >
                             <ArrowRightEndOnRectangleIcon width={20} />
                             Register
@@ -145,7 +141,6 @@ export default function NavBar() {
 
                     <Link
                         to={'/recipes'}
-                        className="mobile-nav-link"
                     >
                         <BookOpenIcon width={20} />
                         Recipes
@@ -153,7 +148,6 @@ export default function NavBar() {
 
                     <Link
                         to={'/recipes/book'}
-                        className="mobile-nav-link"
                     >
                         <BookmarkIcon width={20} />
                         Saved
