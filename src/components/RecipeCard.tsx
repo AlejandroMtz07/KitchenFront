@@ -143,12 +143,12 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             </>
                     }
                 </div>
-                <div className="p-2">
+                <div className="mb-5">
                     {/* Checking if the user is the owner and the location is the private recipes book */}
                     {username === recipe.user_username && location.pathname != '/recipes' ?
                         (!isEditing ?
                             // Pencil button for recipe edit
-                            <div className="bg-green-600 p-2 w-20 rounded-sm flex justify-center gap-3">
+                            <div className="bg-green-600 p-2 w-32 rounded-sm flex justify-center gap-2">
                                 <button onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}>
                                     Edit
                                 </button>
@@ -156,12 +156,12 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             </div>
                             :
                             // Cancel edit button
-                            <XMarkIcon
-                                width={20}
-                                title="Close"
-                                className="print:hidden mt-2 cursor-pointer text-red-700"
-                                onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}
-                            />
+                            <div className="bg-red-600 p-2 w-32 rounded-sm flex justify-center gap-2">
+                                <button onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}>
+                                    Cancel
+                                </button>
+                                <XMarkIcon width={20} />
+                            </div>
                         ) : ''}
                 </div>
             </div>
