@@ -69,7 +69,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                 border-b-gray-300 shadow-sm shadow-gray-300 align-middle 
                 flex flex-col items-center justify-between lg:mb-10 mb-5">
                 {/* Recipe image */}
-                <img src={recipe.image} alt={recipe.description} className="lg:w-full w-32 lg:mt-0 mt-5" />
+                <img src={recipe.image} alt={recipe.description} className="lg:w-full md:w-1/4 w-full lg:mt-0" />
                 {/* Recipe text */}
                 <div className="text-center lg:p-5 p-2 lg:text-lg text-sm">
                     {
