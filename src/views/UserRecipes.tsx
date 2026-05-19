@@ -39,7 +39,7 @@ export default function UserRecipes() {
                 <ArrowLeftIcon onClick={handleReturn} width={30} className="cursor-pointer"/>
                 {username}'s recipes
             </h1>
-            <div className="p-20 *:mb-10">
+            <div className="lg:m-20 m-5 lg:grid grid-cols-3 gap-5">
                 {data?.map(recipe => (
                     <RecipeCard recipe={recipe} key={recipe.id} />
                 ))}

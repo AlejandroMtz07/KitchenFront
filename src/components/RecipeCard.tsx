@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import api from "../config/axios"
 import type { PublicRecipe } from "../types"
 import { toast } from "sonner"
-import { GlobeAltIcon, LockClosedIcon, XMarkIcon } from "@heroicons/react/24/outline"
+import { GlobeAltIcon, LockClosedIcon, PencilIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import ErrorMessage from "./ErrorMessage"
@@ -80,8 +80,8 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                     {recipe.name}
                                     {recipe.is_private ?
                                         (recipe.is_private === '0' ?
-                                            <GlobeAltIcon width={20} title="Public" className="text-green-600" /> :
-                                            <LockClosedIcon width={20} title="Private" className="text-orange-600" />) :
+                                            <GlobeAltIcon width={20} title="Public"/> :
+                                            <LockClosedIcon width={20} title="Private" />) :
                                         <GlobeAltIcon width={20} title="Public" />}
                                 </p>
                                 <p className="font-extralight">{recipe.description}</p>
@@ -148,10 +148,11 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                     {username === recipe.user_username && location.pathname != '/recipes' ?
                         (!isEditing ?
                             // Pencil button for recipe edit
-                            <div className="bg-blue-300 p-1 w-20 rounded-sm flex justify-center">
+                            <div className="bg-green-600 p-2 w-20 rounded-sm flex justify-center gap-3">
                                 <button onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}>
                                     Edit
                                 </button>
+                                <PencilIcon width={15}/>
                             </div>
                             :
                             // Cancel edit button
