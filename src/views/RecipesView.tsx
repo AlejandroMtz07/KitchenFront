@@ -4,6 +4,8 @@ import { Link, Navigate } from "react-router-dom";
 import { ArrowDownTrayIcon, ArrowPathIcon, FaceFrownIcon, MagnifyingGlassIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useMemo, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PDF from "../components/PDF";
 
 export default function RecipesView() {
     const { data, isLoading, isError } = useQuery({
@@ -62,10 +64,16 @@ export default function RecipesView() {
                         {/* Download the recipe book button */}
                         <div className="flex flex-row p-2 gap-2 border-b-black border-b-2 
                             lg:ml-10 text-xs print:hidden">
-                            <ArrowDownTrayIcon width={20} />
-                            <button onClick={() => window.print()} className="uppercase">
-                                Download
-                            </button>
+                            <PDFDownloadLink document={<PDF recipes={data!}/>} fileName="RecipeBook.pdf">
+                                {
+                                    ({loading}) => loading ? 
+                                    <button> Loading...</button> :
+                                    <button className="flex gap-2">
+                                        <ArrowDownTrayIcon width={20} />
+                                        Download recipes
+                                    </button>
+                                }
+                            </PDFDownloadLink>
                         </div>
                     </div>
                 </div>
