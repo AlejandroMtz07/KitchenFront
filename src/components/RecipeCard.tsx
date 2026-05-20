@@ -150,7 +150,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             // Pencil button for recipe edit
 
                             <button 
-                                className="bg-green-600 p-2 w-32 rounded-sm flex justify-center gap-2"
+                                className="bg-green-600 lg:p-2 p-1 mt-2  lg:w-32 w-20 rounded-sm flex justify-center gap-2"
                                 onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}
                             >
                                 Edit
