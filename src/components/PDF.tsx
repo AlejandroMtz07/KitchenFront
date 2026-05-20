@@ -2,6 +2,9 @@ import { Document, Page, Text, StyleSheet, Image, View } from '@react-pdf/render
 import type { PublicRecipe } from '../types'
 
 const styles = StyleSheet.create({
+	page: {
+		backgroundColor: '#eeeeee'
+	},
 	title: {
 		padding: '10px',
 		height: '100px',
@@ -91,6 +94,9 @@ export default function PDF({ recipes }: PDFProps) {
 							</Text>
 							<Text style={styles.recipe_description}>
 								Ingredients: {recipe.ingredients}
+							</Text>
+							<Text style={styles.recipe_description}>
+								Author: {recipe.user_name}
 							</Text>
 						</View>
 					))}
