@@ -43,21 +43,21 @@ export default function RecipesView() {
                 {/* Container for the search recipe input, add and download button */}
                 <div className="flex lg:flex-row flex-col lg:m-10 lg:ml-20 items-center print:hidden">
                     {/* Search recipe input */}
-                    <label htmlFor="searchTerm" className="flex flex-row">
+                    <label htmlFor="searchTerm" className="flex flex-row mb-2">
                         <MagnifyingGlassIcon width={20} />
                         <input
                             type="text" id="searchTerm"
                             placeholder="Search by recipe name, author or ingredients"
-                            className="ml-5 lg:w-96 text-xs w-56 bg-transparent bg-gray-200 p-4 rounded"
+                            className="ml-2 lg:w-96 text-xs w-56 bg-gray-200 lg:p-4 p-2 rounded"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <XMarkIcon width={20} className="ml-5 cursor-pointer" onClick={() => setSearchTerm('')} />
+                        <XMarkIcon width={20} className=" m-2 cursor-pointer" onClick={() => setSearchTerm('')} />
                     </label>
                     <div className="flex flex-row gap-2">
                         {/* Add new recipe button */}
                         <div className="flex flex-row p-2 gap-2 border-b-black border-b-2 
-                            lg:ml-10 uppercase text-xs print:hidden">
+                            lg:ml-10 text-xs print:hidden">
                             <PlusIcon width={20} />
                             <Link to={'/recipes/new'}>New recipe</Link>
                         </div>
@@ -67,7 +67,7 @@ export default function RecipesView() {
                             <PDFDownloadLink document={<PDF recipes={data!}/>} fileName="RecipeBook.pdf">
                                 {
                                     ({loading}) => loading ? 
-                                    <button> Loading...</button> :
+                                    <button > Loading...</button> :
                                     <button className="flex gap-2">
                                         <ArrowDownTrayIcon width={20} />
                                         Download recipes
