@@ -27,12 +27,12 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
     const handleAddRecipe = async (recipe: PublicRecipe) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await api.post(
+            const {data} = await api.post(
                 `/recipes/${recipe.id}`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             )
-            console.log(response)
+            toast.success(data.msg);
         } catch (error) {
             toast.error('Login for add this recipe');
             setTimeout(() => {
