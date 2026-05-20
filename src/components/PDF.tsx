@@ -1,4 +1,4 @@
-import { Document, Page, Text, StyleSheet, Link, Image, View } from '@react-pdf/renderer'
+import { Document, Page, Text, StyleSheet, Image, View } from '@react-pdf/renderer'
 import type { PublicRecipe } from '../types'
 
 const styles = StyleSheet.create({
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
 		border: '1 solid #d1d5db',
 		borderRadius: 6,
 		padding: 10,
-		marginBottom: 15
+		marginBottom: 15,
+		margin: 5
 
 	},
 
@@ -49,6 +50,12 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		textAlign: 'center'
 
+	},
+
+	recipe_description: {
+
+		fontSize: 12,
+		textAlign: 'left'
 	}
 })
 
@@ -78,6 +85,12 @@ export default function PDF({ recipes }: PDFProps) {
 							/>
 							<Text style={styles.recipe_title}>
 								{recipe.name}
+							</Text>
+							<Text style={styles.recipe_description}>
+								Description: {recipe.description}
+							</Text>
+							<Text style={styles.recipe_description}>
+								Ingredients: {recipe.ingredients}
 							</Text>
 						</View>
 					))}
