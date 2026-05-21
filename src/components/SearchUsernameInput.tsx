@@ -38,8 +38,8 @@ export default function SearchUsernameInput() {
 
     return (
         <div className="flex flex-col">
-            <div className="flex flex-row gap-3">
-                <MagnifyingGlassIcon width={20} className="ml-10"/>
+            <div className="flex flex-row align-middle items-center gap-3">
+                <MagnifyingGlassIcon width={20} className="ml-10" />
                 <input
                     type="text"
                     className="border-b-2 border-b-gray-300 p-2 focus:bg-gray-100"
@@ -49,28 +49,35 @@ export default function SearchUsernameInput() {
                 />
                 <XMarkIcon width={20} onClick={() => setSearch('')} className="cursor-pointer" />
             </div>
+            {/* Results and spinner container */}
             <div
                 className={`transition-opacity
-                    duration-700 ${usernames ? 'opacity-100' : 'opacity-0'} flex flex-col`
+                    duration-700 ${usernames ? 'opacity-100' : 'opacity-0'} flex justify-end mt-2`
                 }
             >
+                {/* Loading spinner */}
                 {isLoading && (
                     <div className="flex justify-center mt-5 animate-spin w-fit">
                         <ArrowPathIcon width={20} />
                     </div>
                 )}
-                {usernames ?
-                    usernames.usernames.map(user => (
-                        <Link
-                            to={`/${user.username}`}
-                            key={user.username}
-                            className="bg-gray-100 p-2 rounded mt-1 cursor-pointer 
-                                    text-center hover:bg-gray-200"
-                        >
-                            {user.username}
-                        </Link>))
-                    :
-                    <p></p>}
+                {/* Results container */}
+                <div className="flex flex-col w-11/12 rounded bg-gray-200">
+                    {usernames ?
+                        usernames.usernames.map(user => (
+                                <Link
+                                    to={`/${user.username}`}
+                                    className="p-2.5 rounded cursor-pointer 
+                                    hover:bg-gray-300 flex gap-3"
+                                >
+                                    <MagnifyingGlassIcon width={15}/>
+                                    {user.username}
+                                </Link>
+                        ))
+                        :
+                        <p></p>
+                    }
+                </div>
             </div>
         </div>
     )

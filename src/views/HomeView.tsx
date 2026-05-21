@@ -7,7 +7,7 @@ export default function HomeView() {
     return (
         <div className="bg-white min-h-screen">
             <NavBar />
-            <div className="lg:p-5 p-3 flex justify-start ml-2 rounded">
+            <div className="lg:p-5 p-3 flex justify-start rounded">
                 <SearchUsernameInput/>
             </div>
             <main className="lg:grid p-4 flex flex-col m-10 gap-10">
