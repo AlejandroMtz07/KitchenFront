@@ -6,7 +6,7 @@ import { GlobeAltIcon, LockClosedIcon, PencilIcon, XMarkIcon } from "@heroicons/
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import ErrorMessage from "./ErrorMessage"
-import { isAxiosError } from "axios"
+import { AxiosError, isAxiosError } from "axios"
 
 type RecipeCardProps = {
     recipe: PublicRecipe
@@ -34,10 +34,17 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
             )
             toast.success(data.msg);
         } catch (error) {
-            toast.error('Login for add this recipe');
-            setTimeout(() => {
-                navigate('/auth/login');
-            }, 1000)
+            if(isAxiosError(error) && error.response){
+                if(error.response.status == 409){
+                    toast.error(error.response.data.error)
+                }
+                if(error.response.status == 401 || error.response.status == 500){
+                    toast.error('Login for add this recipe');
+                    setTimeout(() => {
+                        navigate('/auth/login');
+                    }, 1000)
+                }
+            }
         }
     }
 
