@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import api from "../config/axios"
 import type { PublicRecipe } from "../types"
 import { toast } from "sonner"
-import { GlobeAltIcon, LockClosedIcon, PencilIcon, XMarkIcon } from "@heroicons/react/24/outline"
+import { GlobeAltIcon, LockClosedIcon, PencilIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import ErrorMessage from "./ErrorMessage"
@@ -27,18 +27,18 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
     const handleAddRecipe = async (recipe: PublicRecipe) => {
         const token = localStorage.getItem('token');
         try {
-            const {data} = await api.post(
+            const { data } = await api.post(
                 `/recipes/${recipe.id}`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             )
             toast.success(data.msg);
         } catch (error) {
-            if(isAxiosError(error) && error.response){
-                if(error.response.status == 409){
+            if (isAxiosError(error) && error.response) {
+                if (error.response.status == 409) {
                     toast.error(error.response.data.error)
                 }
-                if(error.response.status == 401 || error.response.status == 500){
+                if (error.response.status == 401 || error.response.status == 500) {
                     toast.error('Login for add this recipe');
                     setTimeout(() => {
                         navigate('/auth/login');
@@ -153,25 +153,28 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                     {/* Checking if the user is the owner and the location is the private recipes book */}
                     {username === recipe.user_username && location.pathname != '/recipes' ?
                         (!isEditing ?
-                            // Pencil button for recipe edit
-
-                            <button 
-                                className="bg-green-600 lg:p-2 p-1 mt-2  lg:w-32 w-20 rounded-sm flex justify-center gap-2"
-                                onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}
-                            >
-                                Edit
-                                <PencilIcon width={15} />
-                            </button>
+                            // Edit and delete container
+                            <div className="flex flex-row gap-2">
+                                <button
+                                    className="bg-blue-300 lg:p-3 p-2 mt-2 rounded-full gap-2"
+                                    onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}
+                                >
+                                    <PencilIcon width={15} />
+                                </button>
+                                <button
+                                    className="bg-red-300 lg:p-3 p-2 mt-2 rounded-full"
+                                >
+                                    <TrashIcon width={15} />
+                                </button>
+                            </div>
                             :
                             // Cancel edit button
                             <button
-                                className="bg-red-600 p-2 w-32 rounded-sm flex justify-center gap-2"
+                                className="bg-red-300 lg:p-3 p-2 mt-2 rounded-full gap-2"
                                 onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}
                             >
-                                Cancel
-                                <XMarkIcon width={20} />
+                                <XMarkIcon width={15} />
                             </button>
-
                         ) : ''}
                 </div>
             </div>
