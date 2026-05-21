@@ -24,6 +24,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
     const location = useLocation();
     const username = localStorage.getItem('username');
 
+    // Method for adding public recipes from the public recipe book.
     const handleAddRecipe = async (recipe: PublicRecipe) => {
         const token = localStorage.getItem('token');
         try {
@@ -52,6 +53,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
     const [editingId, setEditingId] = useState(0);
     const { handleSubmit, reset, register, formState: { errors } } = useForm<EditRecipe>();
 
+    // Method for the update of the user recipes.
     const handleEdit = async (updatedRecipe: EditRecipe) => {
         try {
             const token = localStorage.getItem('token');
