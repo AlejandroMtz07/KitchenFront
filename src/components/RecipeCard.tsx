@@ -6,7 +6,7 @@ import { GlobeAltIcon, LockClosedIcon, PencilIcon, XMarkIcon } from "@heroicons/
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import ErrorMessage from "./ErrorMessage"
-import { AxiosError, isAxiosError } from "axios"
+import { isAxiosError } from "axios"
 
 type RecipeCardProps = {
     recipe: PublicRecipe
