@@ -129,7 +129,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             </> :
                             <>
                                 {/* Form display when the user clicks the edit button */}
-                                <form className="flex flex-col items-center *:m-1" onSubmit={handleSubmit(handleEdit)}>
+                                <form className="*:m-1" onSubmit={handleSubmit(handleEdit)}>
                                     <label className="font-extralight" htmlFor="name">Recipe name</label>
                                     <input
                                         type="text"
@@ -169,7 +169,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                 </div>
                 <div className="mb-5">
                     {/* Checking if the user is the owner and the location is the private recipes book */}
-                    {location.pathname != '/recipes' ?
+                    {location.pathname === '/recipes/book' ?
                         (!isEditing ?
                             // Edit and delete container
                             <div className="flex flex-row gap-2">
@@ -179,14 +179,15 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                 >
                                     <PencilIcon width={15} />
                                 </button>
-                                {/* Handling deleting a public recipe from MY recipe book */}
-                                <button
-                                    className="bg-red-300 lg:p-3 p-2 mt-2 rounded-full"
-                                    title="Delete from my recipes"
-                                    onClick={() => deletePublicRecipe(recipe.id)}
-                                >
-                                    <TrashIcon width={15} />
-                                </button>
+                                {username === recipe.user_username ? (
+                                    // {/* Handling deleting a public recipe from MY recipe book */}
+                                    <button
+                                        className="bg-red-300 lg:p-3 p-2 mt-2 rounded-full"
+                                        title="Delete from my recipes"
+                                        onClick={() => deletePublicRecipe(recipe.id)}
+                                    >
+                                        <TrashIcon width={15} />
+                                    </button>) : ''}
                             </div>
                             :
                             // Cancel edit button
