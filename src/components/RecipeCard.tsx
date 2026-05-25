@@ -71,6 +71,22 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
 
     }
 
+    //Method for deleting the recipe from the public recipe book
+    const deletePublicRecipe = async (recipe_id: number) => {
+        try {
+            const token = localStorage.getItem('token');
+            const { data } = await api.delete(
+                `/recipes/${recipe_id}`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            toast.success(data.response.data);
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                toast.error(error.response.data);
+            }
+        }
+    }
+
     return (
         <>
             {/* Recipe container */}
@@ -153,7 +169,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                 </div>
                 <div className="mb-5">
                     {/* Checking if the user is the owner and the location is the private recipes book */}
-                    {username === recipe.user_username && location.pathname != '/recipes' ?
+                    {location.pathname != '/recipes' ?
                         (!isEditing ?
                             // Edit and delete container
                             <div className="flex flex-row gap-2">
@@ -163,8 +179,11 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                 >
                                     <PencilIcon width={15} />
                                 </button>
+                                {/* Handling deleting a public recipe from MY recipe book */}
                                 <button
                                     className="bg-red-300 lg:p-3 p-2 mt-2 rounded-full"
+                                    title="Delete from my recipes"
+                                    onClick={() => deletePublicRecipe(recipe.id)}
                                 >
                                     <TrashIcon width={15} />
                                 </button>
