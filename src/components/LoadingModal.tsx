@@ -13,7 +13,7 @@ export default function LoadingModal({ isLoading, message} : LoadingModalProps) 
         flex justify-center items-center z-[9999] bg-gray-700 bg-opacity-50 rounded-lg">
             <div className="flex items-center justify-center flex-col">
                 <div className="rounded-full animate-spin">
-                    <img src="../public/images/cubiertos.png" alt="Loading" className="h-20 w-20"/>
+                    <img src="/images/cubiertos.png" alt="Loading" className="h-20 w-20"/>
                 </div>
                 <p className="text-white text-xl font-bold mt-3">{message}</p>
             </div>
