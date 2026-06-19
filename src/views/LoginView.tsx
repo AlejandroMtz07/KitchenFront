@@ -19,11 +19,13 @@ export default function LoginView() {
     }
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
+
     const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const handleLogin = async (formData: LoginData) => {
+
         setIsLoading(true);
         try {
             const { data } = await api.post(
@@ -32,14 +34,14 @@ export default function LoginView() {
             )
             toast.success(data.msg);
             localStorage.setItem('token', data.token);
-            localStorage.setItem('username',data.username)
+            localStorage.setItem('username', data.username)
             navigate('/recipes/book');
             reset();
         } catch (error) {
             if (isAxiosError(error) && error.response) {
                 toast.error(error.response.data.error);
             }
-        }finally{
+        } finally {
             setIsLoading(false);
         }
     }
@@ -102,14 +104,17 @@ export default function LoginView() {
             </form>
             <div className="mt-10 uppercase text-xs font-extralight">
                 <p>Dont have an account yet?</p>
-                <Link 
-                    to={'/auth/register'} 
+                <Link
+                    to={'/auth/register'}
                     className="text-blue-800 font-bold"
                 >
                     ¡Register here!
                 </Link>
             </div>
-            <LoadingModal isLoading={isLoading} message="Loading please wait..."/>
+            <LoadingModal
+                isLoading={isLoading}
+                message='Loading...'
+            />
         </div>
     )
 }
