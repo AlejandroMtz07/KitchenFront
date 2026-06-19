@@ -12,12 +12,12 @@ export default function LoginView() {
     const [isVisible, setIsVisible] = useState(false);
 
     //Setting the initial values
-    const initialVlaues: LoginData = {
+    const initialValues: LoginData = {
         email: '',
         password: ''
     }
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialVlaues });
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
 
     const navigate = useNavigate();
 
