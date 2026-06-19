@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../config/axios";
 import { toast } from "sonner";
+import LoadingModal from "../components/LoadingModal";
 
 
 export default function RegisterView() {
@@ -24,6 +25,7 @@ export default function RegisterView() {
     const navigate = useNavigate();
 
     const [isVisible, setIsVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleRegister = async (registerData: RegisterData) => {
         if (registerData.name.trim().length === 0) {
@@ -41,6 +43,7 @@ export default function RegisterView() {
         if (registerData.password.trim().length === 0) {
             setError('password', { message: 'Password is required' });
         }
+        setIsLoading(true);
         try {
             const { data } = await api.post(
                 '/auth/register',
@@ -53,8 +56,9 @@ export default function RegisterView() {
             if (isAxiosError(error) && error.response) {
                 toast.error(error.response.data.error);
             }
+        }finally{
+            setIsLoading(false);
         }
-
     }
 
     return (
@@ -165,6 +169,7 @@ export default function RegisterView() {
                     </Link>
                 </div>
             </div>
+            <LoadingModal isLoading={isLoading} message="Creating account..."/>
         </>
     )
 }
