@@ -10,10 +10,12 @@ export default function LoadingModal({ isLoading, message} : LoadingModalProps) 
     return (
         
         <div className="fixed top-1/4 lg:left-[38%] md:left-[30%] left-[7%] w-[50vh] h-[50vh] 
-        flex justify-center items-center z-[9999] bg-gray-700 bg-opacity-70 rounded-lg">
+        flex justify-center items-center z-[9999] bg-gray-700 bg-opacity-50 rounded-lg">
             <div className="flex items-center justify-center flex-col">
-                <div className="w-16 h-16 border-4 border-gray-100 border-t-blue-700 rounded-full animate-spin"/>
-                <p className="text-white">{message}</p>
+                <div className="rounded-full animate-spin">
+                    <img src="../public/images/cubiertos.png" alt="Loading" className="h-20 w-20"/>
+                </div>
+                <p className="text-white text-xl font-bold mt-3">{message}</p>
             </div>
         </div>
     )
