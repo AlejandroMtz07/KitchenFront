@@ -6,6 +6,7 @@ import { isAxiosError } from "axios";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../config/axios";
+import LoadingModal from "../components/LoadingModal";
 
 export default function LoginView() {
 
@@ -18,10 +19,12 @@ export default function LoginView() {
     }
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const handleLogin = async (formData: LoginData) => {
+        setIsLoading(true);
         try {
             const { data } = await api.post(
                 '/auth/login',
@@ -36,6 +39,8 @@ export default function LoginView() {
             if (isAxiosError(error) && error.response) {
                 toast.error(error.response.data.error);
             }
+        }finally{
+            setIsLoading(false);
         }
     }
 
@@ -104,6 +109,7 @@ export default function LoginView() {
                     ¡Register here!
                 </Link>
             </div>
+            <LoadingModal isLoading={isLoading} message="Loading please wait..."/>
         </div>
     )
 }
