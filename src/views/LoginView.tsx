@@ -12,12 +12,12 @@ export default function LoginView() {
     const [isVisible, setIsVisible] = useState(false);
 
     //Setting the initial values
-    const initalVlaues: LoginData = {
+    const initialVlaues: LoginData = {
         email: '',
         password: ''
     }
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initalVlaues });
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialVlaues });
 
     const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ export default function LoginView() {
                         EMAIL
                     </label>
                     <input
-                        type="text"
+                        type="email"
                         id="email"
                         className="bg-gray-100 hover:border-b-2 border-gray-400
                          focus:bg-gray-200 text-center p-2 transition"
@@ -76,7 +76,7 @@ export default function LoginView() {
                         className="bg-gray-100 hover:border-b-2 border-gray-400 
                          focus:bg-gray-200 text-center p-2 transition"
                         {...register("password", {
-                            required: "Password id required",
+                            required: "Password is required",
                         })}
                     />
                     {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}

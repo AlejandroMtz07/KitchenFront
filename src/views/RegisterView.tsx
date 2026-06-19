@@ -114,7 +114,7 @@ export default function RegisterView() {
                             EMAIL
                         </label>
                         <input
-                            type="text"
+                            type="email"
                             id="email"
                             className="bg-gray-100 hover:border-b-2 border-gray-400
                             focus:bg-gray-200 text-center p-2 transition"
@@ -129,7 +129,7 @@ export default function RegisterView() {
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="passsword" className="p-4 font-extralight text-sm">
-                            PASSWRORD
+                            PASSWORD
                         </label>
                         <input
                             type={isVisible ? 'text' : 'password'}
