@@ -6,6 +6,9 @@ import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useDebounce } from "../hooks";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { isAxiosError } from "axios";
+import LoadingModal from "../components/LoadingModal";
+import NotFoundView from "./NotFoundView";
 
 
 export default function PublicRecipesView() {
@@ -18,7 +21,7 @@ export default function PublicRecipesView() {
     const [search, setSearch] = useState('');
     const debounced = useDebounce(search, 400);
 
-    const { data, isError } = useQuery<PreviewRecipes>({
+    const { data, isLoading, isError } = useQuery<PreviewRecipes>({
         queryKey: ['previewRecipes', debounced],
         queryFn: () => searchRecipes(debounced),
         retry: 1,
@@ -36,11 +39,23 @@ export default function PublicRecipesView() {
 
     //Getting 5 random public recipes from the backend
     const [publicRecipes, setPublicRecipes] = useState<PublicRecipe[]>([]);
+    const [recipesState, setRecipesState] = useState({
+        status: 'pending',
+    })
+
     const getRecipes = async () => {
-        const { data } = await api.get<BackendRecipes>(
-            '/recipes/all',
-        )
-        setPublicRecipes(data.recipes);
+        setRecipesState({status:'pending'})
+        try {
+            const { data } = await api.get<BackendRecipes>(
+                '/recipes/all',
+            )
+            setPublicRecipes(data.recipes);
+            setRecipesState({status: 'success'})
+        } catch (error) {
+            setRecipesState({status: 'error'})
+            if(isAxiosError(error) && error.response){
+            }
+        }
     }
 
     //Getting on render 5 public recipes
@@ -48,6 +63,14 @@ export default function PublicRecipesView() {
         getRecipes();
     }, []);
 
+
+    if(recipesState.status == 'pending'){
+        return <LoadingModal isLoading={true} message="Fetching recipes..."/>
+    }
+
+    if(recipesState.status == 'error' ){
+        return <NotFoundView message="Recipes not found"/>
+    }
 
     return (
         <div>
@@ -63,11 +86,6 @@ export default function PublicRecipesView() {
                     />
                     <XMarkIcon width={20} onClick={()=>setSearch('')} className="cursor-pointer"/>
                 </label>
-                    {isError && 
-                        <p className="bg-gray-200 w-52 ml-12 p-2 rounded text-center">
-                            Any recipe found
-                        </p>
-                    }
                     {data && data?.recipes.map(recipe => (
                         <div 
                             className="w-52 text-center bg-gray-200 rounded p-2 flex flex-row ml-12 font-extralight"

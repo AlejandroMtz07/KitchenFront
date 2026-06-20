@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRecipes } from "../api/RecipesApi";
 import { Link, Navigate } from "react-router-dom";
-import { ArrowDownTrayIcon, ArrowPathIcon, FaceFrownIcon, MagnifyingGlassIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowDownTrayIcon, FaceFrownIcon, MagnifyingGlassIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useMemo, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PDF from "../components/PDF";
+import LoadingModal from "../components/LoadingModal";
 
 export default function RecipesView() {
     const { data, isLoading, isError } = useQuery({
@@ -28,9 +29,7 @@ export default function RecipesView() {
     }
 
     if (isLoading) return (
-        <div className="flex justify-center items-center h-screen animate-spin">
-            <ArrowPathIcon height={40} width={40} />
-        </div>
+        <LoadingModal isLoading={isLoading} message="Fetching your saved recipes..."/>
     )
 
     return (

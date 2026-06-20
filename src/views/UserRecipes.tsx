@@ -3,8 +3,9 @@ import { getRecipesByUsername } from "../api/RecipesApi";
 import { useQuery } from "@tanstack/react-query";
 import type { PublicRecipe } from "../types";
 import RecipeCard from "../components/RecipeCard";
-import { ArrowLeftIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import NotFoundView from "./NotFoundView";
+import LoadingModal from "../components/LoadingModal";
 
 
 export default function UserRecipes() {
@@ -22,16 +23,12 @@ export default function UserRecipes() {
     }
 
     if (isError) {
-        return <NotFoundView/>
+        return <NotFoundView message="User not found"/>
     }
 
-    if (isLoading) return (
-        <ArrowPathIcon 
-            height={40} 
-            width={40}  
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        />
-    )
+    if (isLoading){
+        return <LoadingModal isLoading={isLoading} message={`Fetching ${username}'s recipes...`}/>
+    }
 
     return (
         <div>
