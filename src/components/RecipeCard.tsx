@@ -179,7 +179,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                 >
                                     <PencilIcon width={15} />
                                 </button>
-                                {username === recipe.user_username ? (
+                                {username !== recipe.user_username ? (
                                     // {/* Handling deleting a public recipe from MY recipe book */}
                                     <button
                                         className="bg-red-300 lg:p-3 p-2 mt-2 rounded-full"
