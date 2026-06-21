@@ -92,9 +92,9 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
             {/* Recipe container */}
             <div className="bg-white-200 border-2 
                 border-b-gray-300 shadow-sm shadow-gray-300 align-middle 
-                flex flex-col items-center justify-between lg:mb-10 mb-5">
+                flex flex-col items-center justify-between lg:mb-10 mb-5 rounded-xl">
                 {/* Recipe image */}
-                <img src={recipe.image} alt={recipe.description} className="lg:w-96 md:w-1/2 w-full h-80 lg:mt-0" />
+                <img src={recipe.image} alt={recipe.description} className="lg:w-96 md:w-1/2 w-full h-80 lg:mt-0 rounded-xl" />
                 <div className="text-center lg:p-5 p-2 lg:text-lg text-sm">
                     {
                         !isEditing ?

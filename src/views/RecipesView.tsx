@@ -34,7 +34,7 @@ export default function RecipesView() {
 
     return (
         data?.length! > 0 ?
-            <>
+            <div className="lg:mb-20 md:mb-25 md-40">
                 {/* Recipes view title */}
                 <h1 className="text-center p-5 mt-5 font-extralight text-2xl uppercase">
                     !Your amazing recipe book¡
@@ -82,7 +82,7 @@ export default function RecipesView() {
                         <RecipeCard recipe={recipe} key={recipe.id} />
                     ))}
                 </div>
-            </> :
+            </div> :
             // Validator if there's any recipes saved
             <div className="flex flex-col items-center justify-center p-10">
                 <div className="flex items-center">
