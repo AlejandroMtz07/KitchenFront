@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { isAxiosError } from "axios";
 import LoadingModal from "../components/LoadingModal";
 import NotFoundView from "./NotFoundView";
+import { toast } from "sonner";
 
 
 export default function PublicRecipesView() {
@@ -21,7 +22,7 @@ export default function PublicRecipesView() {
     const [search, setSearch] = useState('');
     const debounced = useDebounce(search, 400);
 
-    const { data, isLoading, isError } = useQuery<PreviewRecipes>({
+    const { data, isLoading } = useQuery<PreviewRecipes>({
         queryKey: ['previewRecipes', debounced],
         queryFn: () => searchRecipes(debounced),
         retry: 1,
@@ -44,17 +45,15 @@ export default function PublicRecipesView() {
     })
 
     const getRecipes = async () => {
-        setRecipesState({status:'pending'})
+        setRecipesState({ status: 'pending' })
         try {
             const { data } = await api.get<BackendRecipes>(
                 '/recipes/all',
             )
             setPublicRecipes(data.recipes);
-            setRecipesState({status: 'success'})
+            setRecipesState({ status: 'success' })
         } catch (error) {
-            setRecipesState({status: 'error'})
-            if(isAxiosError(error) && error.response){
-            }
+            setRecipesState({ status: 'error' })
         }
     }
 
@@ -64,19 +63,19 @@ export default function PublicRecipesView() {
     }, []);
 
 
-    if(recipesState.status == 'pending'){
-        return <LoadingModal isLoading={true} message="Fetching recipes..."/>
+    if (recipesState.status == 'pending') {
+        return <LoadingModal isLoading={true} message="Fetching recipes..." />
     }
 
-    if(recipesState.status == 'error' ){
-        return <NotFoundView message="Recipes not found"/>
+    if (recipesState.status == 'error') {
+        return <NotFoundView message="Recipes not found" />
     }
 
     return (
         <div>
             <div className="flex flex-col lg:ml-20">
                 <label className="flex flex-row p-5 gap-3">
-                    <MagnifyingGlassIcon width={20}/>
+                    <MagnifyingGlassIcon width={20} />
                     <input
                         type="text"
                         placeholder="Search recipes by name..."
@@ -84,20 +83,27 @@ export default function PublicRecipesView() {
                         onChange={(e) => setSearch(e.target.value)}
                         value={search}
                     />
-                    <XMarkIcon width={20} onClick={()=>setSearch('')} className="cursor-pointer"/>
+                    <XMarkIcon width={20} onClick={() => setSearch('')} className="cursor-pointer" />
                 </label>
-                    {data && data?.recipes.map(recipe => (
-                        <div 
-                            className="w-52 text-center bg-gray-200 rounded p-2 flex flex-row ml-12 font-extralight"
-                            key={recipe.user_name.concat(recipe.name)}
+                {/* Showing loading message while searching the recipe by name */}
+                {isLoading &&
+                    <div className="w-52 text-center bg-gray-200 rounded p-2 flex flex-row ml-12 font-extralight">
+                        Searching recipe...
+                    </div>
+                }
+                {/* Displaying the recipe list that match with the search input*/}
+                {data && data?.recipes.map(recipe => (
+                    <div
+                        className="w-52 text-center bg-gray-200 rounded p-2 flex flex-row ml-12 font-extralight"
+                        key={recipe.user_name.concat(recipe.name)}
+                    >
+                        <Link
+                            to={'/' + recipe.user_name}
                         >
-                            <Link
-                                to={'/' + recipe.user_name}
-                            >
-                                {recipe.name} <span className="font-normal">Author:</span> {recipe.user_name}
-                            </Link>
-                        </div>
-                    ))}
+                            {recipe.name} <span className="font-normal">Author:</span> {recipe.user_name}
+                        </Link>
+                    </div>
+                ))}
             </div>
             {/* List of public recipes */}
             <div className="lg:m-20 m-5 lg:grid grid-cols-3 gap-5">
