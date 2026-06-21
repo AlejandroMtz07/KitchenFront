@@ -6,10 +6,8 @@ import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useDebounce } from "../hooks";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { isAxiosError } from "axios";
 import LoadingModal from "../components/LoadingModal";
 import NotFoundView from "./NotFoundView";
-import { toast } from "sonner";
 
 
 export default function PublicRecipesView() {
