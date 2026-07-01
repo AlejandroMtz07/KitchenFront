@@ -91,10 +91,10 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
         <>
             {/* Recipe container */}
             <div className="bg-white-200 border-2 
-                border-b-gray-300 shadow-sm shadow-gray-300 align-middle 
+                border-b-gray-300 shadow-md shadow-gray-500 align-middle 
                 flex flex-col items-center justify-between lg:mb-10 mb-5 rounded-xl">
                 {/* Recipe image */}
-                <img src={recipe.image} alt={recipe.description} className="lg:w-96 md:w-1/2 w-full h-80 lg:mt-0 rounded-xl" />
+                <img src={recipe.image} alt={recipe.description} className="lg:w-full md:w-1/2 w-full h-80 lg:mt-0 rounded-xl" />
                 <div className="text-center lg:p-5 p-2 lg:text-lg text-sm">
                     {
                         !isEditing ?
@@ -167,14 +167,15 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             </>
                     }
                 </div>
-                <div className="bg-gray-200 w-full flex items-center justify-center p-2 text-sm">
+                <div className="bg-gray-200 w-full flex items-center justify-center p-2 text-sm font-bold
+                tracking-wider">
                     {/* Checking if the user is the owner and the location is the private recipes book */}
                     {location.pathname === '/recipes/book' ?
                         (!isEditing ?
                             // Edit and delete container
                             <div className="flex flex-row gap-2">
                                 <button
-                                    className="bg-blue-500 lg:p-3 p-2 mt-2 gap-2 w-20 
+                                    className="bg-blue-500 lg:p-2 p-1 mt-2 gap-2 w-20 
                                     text-center rounded-xl text-white"
                                     onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}
                                 >
@@ -183,8 +184,8 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                 {username !== recipe.user_username ? (
                                     // {/* Handling deleting a public recipe from MY recipe book */}
                                     <button
-                                        className="bg-[#a7c6da] lg:p-3 p-2 mt-2 gap-2 w-30 
-                                        text-center rounded-xl text-black"
+                                        className="bg-orange-400 lg:p-2.5 p-1.5 mt-2 gap-2 w-30 
+                                        text-center rounded-xl text-white"
                                         onClick={() => deletePublicRecipe(recipe.id)}
                                     >
                                         Remove recipe
@@ -193,10 +194,11 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             :
                             // Cancel edit button
                             <button
-                                className="bg-red-200 lg:p-3 p-2 mt-2 rounded-lg gap-2 w-20"
+                                className="bg-red-500 lg:p-2 p-1 mt-2 gap-2 w-20
+                                text-center rounded-xl text-white"
                                 onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}
                             >
-                                <XMarkIcon width={15} />
+                                Cancel
                             </button>
                         ) : ''}
                 </div>
