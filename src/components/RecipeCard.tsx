@@ -167,15 +167,15 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             </>
                     }
                 </div>
-                <div className="bg-gray-200 w-full flex items-center justify-center p-2 text-sm font-bold
+                <div className="bg-gray-200 w-full flex items-center justify-center text-sm font-bold
                 tracking-wider">
                     {/* Checking if the user is the owner and the location is the private recipes book */}
                     {location.pathname === '/recipes/book' ?
                         (!isEditing ?
                             // Edit and delete container
-                            <div className="flex flex-row gap-2">
+                            <div className="flex flex-row gap-2 p-2">
                                 <button
-                                    className="bg-blue-500 lg:p-2 p-1 mt-2 gap-2 w-20 
+                                    className="bg-blue-500 lg:p-2 p-1  gap-2 w-20 
                                     text-center rounded-xl text-white"
                                     onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}
                                 >
@@ -184,7 +184,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                 {username !== recipe.user_username ? (
                                     // {/* Handling deleting a public recipe from MY recipe book */}
                                     <button
-                                        className="bg-orange-400 lg:p-2.5 p-1.5 mt-2 gap-2 w-30 
+                                        className="bg-orange-400 lg:p-2.5 p-1.5 gap-2 w-30 
                                         text-center rounded-xl text-white"
                                         onClick={() => deletePublicRecipe(recipe.id)}
                                     >
@@ -193,13 +193,15 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             </div>
                             :
                             // Cancel edit button
-                            <button
-                                className="bg-red-500 lg:p-2 p-1 mt-2 gap-2 w-20
-                                text-center rounded-xl text-white"
-                                onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}
-                            >
-                                Cancel
-                            </button>
+                            <div className="flex flex-row gap-2 p-2">
+                                <button
+                                    className="bg-red-500 lg:p-2 p-1 gap-2 w-20
+                                    text-center rounded-xl text-white"
+                                    onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
                         ) : ''}
                 </div>
             </div>
