@@ -94,7 +94,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                 flex flex-col items-center justify-between lg:mb-10 mb-5 rounded-xl">
                 {/* Recipe image */}
                 <img src={recipe.image} alt={recipe.description} className="lg:w-full md:w-1/2 w-full h-80 lg:mt-0 rounded-xl" />
-                <div className="text-center lg:p-5 p-2 lg:text-lg text-sm">
+                <div className="text-center lg:p-5 p-2 lg:text-lg text-sm mb-5 mt-5">
                     {
                         !isEditing ?
                             // Recipe information
@@ -106,9 +106,9 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                     {/* Recipe privacy icon */}
                                     {recipe.is_private ?
                                         (recipe.is_private === '0' ?
-                                            <p className="text-[#0FB478] text-[14px]">Public</p> :
-                                            <p className="text-[#4747db99] text-[14px]">Private</p>) :
-                                        <p className="text-[#0FB478] text-[14px]">Public</p>}
+                                            <p className="text-[#0FB478] text-[15px]">[Public]</p> :
+                                            <p className="text-[#4747db99] text-[15px]">[Private]</p>) :
+                                        <p className="text-[#0FB478] text-[15px]">[Public]</p>}
                                 </span>
                                 <p className="text-[#7C7C80] font-[15px]">
                                     {recipe.description}
@@ -175,7 +175,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             </>
                     }
                 </div>
-                <div className="bg-gray-200 w-full flex items-center justify-center text-sm font-bold
+                <div className="bg-gray-200 w-full flex items-center justify-center text-sm 
                 tracking-wider">
                     {/* Checking if the path is the private recipe book for editing functions and removing public recipes*/}
                     {location.pathname === '/recipes/book' ?
@@ -184,8 +184,8 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                             <div className="flex flex-row gap-2 p-2">
                                 {username === recipe.user_username ? (
                                     <button
-                                        className="bg-blue-500 lg:p-2 p-1 gap-2 w-20 
-                                        text-center rounded-xl text-white"
+                                        className="bg-blue-500 lg:p-2.5 p-1.5 gap-2 w-20 
+                                        text-center rounded-xl text-white font-semibold"
                                         onClick={() => {
                                             setIsEditing(true);
                                             setEditingId(recipe.id);
@@ -195,8 +195,8 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                     </button>
                                 ) : (
                                     <button
-                                        className="bg-orange-400 lg:p-2.5 p-1.5 gap-2 w-30 
-                                        text-center rounded-xl text-white"
+                                        className="bg-[#FFC933] lg:p-2.5 p-1.5 gap-2 w-30 
+                                        text-center rounded-xl text-black font-semibold"
                                         onClick={() => deletePublicRecipe(recipe.id)}
                                     >
                                         Remove recipe
