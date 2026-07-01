@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import api from "../config/axios"
 import type { PublicRecipe } from "../types"
 import { toast } from "sonner"
-import { GlobeAltIcon, LockClosedIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import ErrorMessage from "./ErrorMessage"
@@ -178,27 +177,31 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                 </div>
                 <div className="bg-gray-200 w-full flex items-center justify-center text-sm font-bold
                 tracking-wider">
-                    {/* Checking if the user is the owner and the location is the private recipes book */}
+                    {/* Checking if the path is the private recipe book for editing functions and removing public recipes*/}
                     {location.pathname === '/recipes/book' ?
                         (!isEditing ?
                             // Edit and delete container
                             <div className="flex flex-row gap-2 p-2">
-                                <button
-                                    className="bg-blue-500 lg:p-2 p-1  gap-2 w-20 
-                                    text-center rounded-xl text-white"
-                                    onClick={() => { setIsEditing(!isEditing); setEditingId(recipe.id) }}
-                                >
-                                    Edit
-                                </button>
-                                {username !== recipe.user_username ? (
-                                    // {/* Handling deleting a public recipe from MY recipe book */}
+                                {username === recipe.user_username ? (
+                                    <button
+                                        className="bg-blue-500 lg:p-2 p-1 gap-2 w-20 
+                                        text-center rounded-xl text-white"
+                                        onClick={() => {
+                                            setIsEditing(true);
+                                            setEditingId(recipe.id);
+                                        }}
+                                    >
+                                        Edit
+                                    </button>
+                                ) : (
                                     <button
                                         className="bg-orange-400 lg:p-2.5 p-1.5 gap-2 w-30 
                                         text-center rounded-xl text-white"
                                         onClick={() => deletePublicRecipe(recipe.id)}
                                     >
                                         Remove recipe
-                                    </button>) : ''}
+                                    </button>
+                                )}
                             </div>
                             :
                             // Cancel edit button
@@ -206,7 +209,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                                 <button
                                     className="bg-red-500 lg:p-2 p-1 gap-2 w-20
                                     text-center rounded-xl text-white"
-                                    onClick={() => { setIsEditing(!isEditing); reset(); setEditingId(0) }}
+                                    onClick={() => { setIsEditing(false); reset(); setEditingId(0) }}
                                 >
                                     Cancel
                                 </button>
