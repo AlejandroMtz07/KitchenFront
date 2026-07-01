@@ -98,35 +98,44 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                 <div className="text-center lg:p-5 p-2 lg:text-lg text-sm">
                     {
                         !isEditing ?
-                            <>
-                                <p
-                                    className="font-extralight flex flex-row justify-center gap-2">
-                                    {recipe.name}
+                            // Recipe information
+                            <div>
+                                <span className="flex flex-row items-center align-middle justify-center gap-2">
+                                    <p className="font-bold text-gray-700 text-[22px] leading-7 mb-1">
+                                        {recipe.name}
+                                    </p>
+                                    {/* Recipe privacy icon */}
                                     {recipe.is_private ?
                                         (recipe.is_private === '0' ?
-                                            <GlobeAltIcon width={20} title="Public" /> :
-                                            <LockClosedIcon width={20} title="Private" />) :
-                                        <GlobeAltIcon width={20} title="Public" />}
+                                            <p className="text-[#0FB478] text-[14px]">Public</p> :
+                                            <p className="text-[#4747db99] text-[14px]">Private</p>) :
+                                        <p className="text-[#0FB478] text-[14px]">Public</p>}
+                                </span>
+                                <p className="text-[#7C7C80] font-[15px]">
+                                    {recipe.description}
                                 </p>
-                                <p className="font-extralight">{recipe.description}</p>
-                                <p className="font-extralight">{recipe.ingredients}</p>
-                                {recipe.user_username && <p>
-                                    Author:
-                                    <Link
-                                        to={`/${recipe.user_username}`}
-                                        className="font-extralight border-b-2 border-black"
-                                    >
-                                        {' '}{recipe.user_username}
-                                    </Link>
-                                    <br />
-                                </p>}
+                                <p className="text-[#7C7C80] font-[15px]">
+                                    {recipe.ingredients}
+                                </p>
+                                {recipe.user_username &&
+                                    <p className="text-[#7C7C80] font-[15px]">
+                                        Author:
+                                        <Link
+                                            to={`/${recipe.user_username}`}
+                                            className="font-[15px] text-black border-b-2 border-black"
+                                        >
+                                            {' '}{recipe.user_username}
+                                        </Link>
+                                        <br />
+                                    </p>}
                                 {location.pathname !== '/recipes/book' && <button
                                     className="lg:mt-10 mt-2 text-xs p-2 uppercase lg:border-b-2 border-black "
                                     onClick={() => handleAddRecipe(recipe)}
                                 >
                                     Add recipe
                                 </button>}
-                            </> :
+                            </div> :
+                            // Recipe editing form
                             <>
                                 {/* Form display when the user clicks the edit button */}
                                 <form className="*:m-1" onSubmit={handleSubmit(handleEdit)}>
